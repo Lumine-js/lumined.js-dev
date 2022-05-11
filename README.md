@@ -12,7 +12,8 @@ const client = new Client({
    token:"YOUR BOT TOKEN"
 })
 
-client.login()```
+client.login()
+```
 
 • Method 2 
 
@@ -22,4 +23,5 @@ const client = new Client({
    intents:[]
 })
 
-client.login("YOUR BOT TOKEN")```
+client.login("YOUR BOT TOKEN")
+```
