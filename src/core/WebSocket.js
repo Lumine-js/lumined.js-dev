@@ -1,6 +1,6 @@
 class WebSocket {
   constructor(client) {
-    super()
+    super(client)
     
   }
   
