@@ -1,6 +1,6 @@
 class WebSocket {
   constructor(client) {
-    super(client)
+    super()
     
   }
   
@@ -8,7 +8,6 @@ class WebSocket {
     const WebSocket = require('ws'); //npmjs.org/ws
     const zlib = require('node:zlib');
     const erlpack = require('erlpack'); // github.com/discordapp/erlpack
-    const os = require('os') // from node "standard library"
 
     const versionGATEWAY = '10'
     // https://discordapi.com/topics/gateway#gateway-opcodespayloads
