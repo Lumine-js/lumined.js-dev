@@ -2,6 +2,7 @@ const { EventEmitter } = require("node:events")
 const { WebSocket } = require('./src/core/WebSocket.js')
 class Client extends EventEmitter {
   constructor(options = {}) {
+    super()
     this.token = options.token || null
     this.intents = options.intents || null
   }
