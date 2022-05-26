@@ -1,9 +1,9 @@
 class WebSocket {
   constructor(client) {
-    super(client)
-
+    super()
+    
   }
-
+  
   start() {
     const WebSocket = require('ws'); //npmjs.org/ws
     const zlib = require('node:zlib');
