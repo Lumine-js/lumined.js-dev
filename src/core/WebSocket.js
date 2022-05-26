@@ -1,6 +1,6 @@
 class WebSocket {
   constructor(client) {
-    super()
+    this.client = client
     
   }
   
@@ -63,14 +63,14 @@ class WebSocket {
           // https://discordapi.com/topics/gateway#gateway-identify
           send(OPCodes.IDENTIFY, {
             // you should put your token here _without_ the "Bot" prefix
-            token: this?.token,
+            token: this?.client?.token,
             properties: {
               $os: "Lumine.js",
               $browser: 'Lumine.js',
               $device: "linux",
             },
             compress: false,
-            intents: this?.intents
+            intents: this?.client?.intents
           });
       }
 
@@ -80,7 +80,7 @@ class WebSocket {
         // we should get this after we send identify
         case 'READY':
           console.log('ready as', packet.d.user);
-          this.emit("ready", packet.d.user)
+          this.client.emit("ready", packet.d.user)
           break;
       }
     };
