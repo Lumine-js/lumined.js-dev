@@ -16,3 +16,7 @@ class Client extends EventEmitter {
     websocket.start()
   }
 }
+
+module.exports = {
+  Client: Client
+}
