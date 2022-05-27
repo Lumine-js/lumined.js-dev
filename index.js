@@ -33,7 +33,7 @@ class Client extends EventEmitter {
     
     let sequence = 0;
     function send(op, d) {
-      this.ws.send({ op, d });
+      this.ws.send({op: op,d: d });
     }
     this.ws.onopen = () => console.log('websocket opened!');
     this.ws.onclose = this.ws.onerror = (e) => {
