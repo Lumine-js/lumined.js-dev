@@ -1,5 +1,5 @@
 const { EventEmitter } = require("node:events")
-const WebSocket = require("ws");
+const { WebSocketServer } = require("ws");
 class Client extends EventEmitter {
   constructor(options = {}) {
     super()
@@ -30,7 +30,7 @@ class Client extends EventEmitter {
       HELLO: 10,
       HEARTBEAT_ACK: 11,
     };
-    this.ws = new WebSocket.Server(wssurl);
+    this.ws = new WebSocketServer.Server(wssurl);
     
     let sequence = 0;
     function send(op, d) {
