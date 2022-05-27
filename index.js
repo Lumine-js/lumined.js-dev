@@ -31,6 +31,12 @@ class Client extends EventEmitter {
       HEARTBEAT_ACK: 11,
     };
     this.ws = new WebSocket(`wss://gateway.discord.gg/?v=${versionGATEWAY}&encoding=json`);
+    
+    let sequence = 0;
+    function send(op, d) {
+      this.ws.send({ op, d });
+    }
+    
     this.ws.onmessage = ({ data }) => {
       console.log(data)
     }
