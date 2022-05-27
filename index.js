@@ -41,6 +41,7 @@ class Client extends EventEmitter {
     }
     this.ws.onmessage = ({ data }) => {
       const packet = data
+      console.log(packet)
       // handle gateway ops
       switch (packet.op) {
         case OPCodes.HELLO:
