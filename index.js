@@ -1,5 +1,5 @@
 const { EventEmitter } = require("node:events")
-const { WebSocketServer } = require("ws");
+const WebSocket = require("ws");
 class Client extends EventEmitter {
   constructor(options = {}) {
     super()
@@ -18,7 +18,6 @@ class Client extends EventEmitter {
       if (token === undefined) throw "Token Tidak Ada"
     }
     if (this?.intents === undefined) throw "Intents Harus Terisi"
-    const websocket = new WebSocket(this)
     this.startWebsocket()
   }
 
@@ -30,7 +29,7 @@ class Client extends EventEmitter {
       HELLO: 10,
       HEARTBEAT_ACK: 11,
     };
-    this.ws = new WebSocketServer.Server(wssurl);
+    this.ws = new WebSocket(wssurl);
     
     let sequence = 0;
     function send(op, d) {
