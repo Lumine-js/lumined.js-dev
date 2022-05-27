@@ -23,14 +23,14 @@ class Client extends EventEmitter {
   }
 
   startWebsocket() {
-    let wssurl = (`wss://gateway.discord.gg/?v=10&encoding=json`).toString()
+    let wssurl = `wss://gateway.discord.gg/?v=10&encoding=json`
     const OPCodes = {
       HEARTBEAT: 1,
       IDENTIFY: 2,
       HELLO: 10,
       HEARTBEAT_ACK: 11,
     };
-    this.ws = new WebSocket(wssurl);
+    this.ws = new WebSocket.Server(wssurl);
     
     let sequence = 0;
     function send(op, d) {
