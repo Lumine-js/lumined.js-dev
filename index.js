@@ -47,7 +47,7 @@ class Client extends EventEmitter {
         case OPCodes.HELLO:
           console.log('Got op 10 HELLO');
           // set heartbeat interval
-          if (packet.s) sequence = packet.s;
+          if(packet.s) sequence = packet.s;
           setInterval(() => send(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval);
           // https://discordapi.com/topics/gateway#gateway-identify
           send(OPCodes.IDENTIFY, {
@@ -59,17 +59,18 @@ class Client extends EventEmitter {
               $device: "linux",
             },
             compress: false,
-            //intents: this?.intents
+            intents: this?.intents
           });
+          break;
       }
 
       // handle gateway packet types
-      if (!packet.t) return;
+      if(!packet.t) return;
       switch (packet.t) {
         // we should get this after we send identify
         case 'READY':
           console.log('ready as', packet.d.user);
-          this.client.emit("ready", packet.d.user)
+          this.emit("ready", packet.d.user)
           break;
       }
     };
