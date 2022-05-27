@@ -43,7 +43,7 @@ class Client extends EventEmitter {
     this.ws.onclose = this.ws.onerror = (e) => {
       console.log(e);
     }
-    ws.onmessage = ({ data }) => {
+    this.ws.onmessage = ({ data }) => {
       const packet = data
       // handle gateway ops
       switch (packet.op) {
