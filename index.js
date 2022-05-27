@@ -43,6 +43,39 @@ class Client extends EventEmitter {
     this.ws.onclose = this.ws.onerror = (e) => {
       console.log(e);
     }
+    ws.onmessage = ({ data }) => {
+      const packet = data
+      // handle gateway ops
+      switch (packet.op) {
+        case OPCodes.HELLO:
+          console.log('Got op 10 HELLO');
+          // set heartbeat interval
+          if (packet.s) sequence = packet.s;
+          setInterval(() => send(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval);
+          // https://discordapi.com/topics/gateway#gateway-identify
+          send(OPCodes.IDENTIFY, {
+            // you should put your token here _without_ the "Bot" prefix
+            token: this?.token,
+            properties: {
+              $os: "Lumine.js",
+              $browser: 'Lumine.js',
+              $device: "linux",
+            },
+            compress: false,
+            intents: this?.intents
+          });
+      }
+
+      // handle gateway packet types
+      if (!packet.t) return;
+      switch (packet.t) {
+        // we should get this after we send identify
+        case 'READY':
+          console.log('ready as', packet.d.user);
+          this.client.emit("ready", packet.d.user)
+          break;
+      }
+    };
     /*
     const WebSocket = require('ws'); //npmjs.org/ws
     const zlib = require('node:zlib');
