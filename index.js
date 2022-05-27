@@ -58,7 +58,6 @@ class Client extends EventEmitter {
               $browser: 'Lumine.js',
               $device: "linux",
             },
-            compress: false,
             intents: this?.intents
           });
           break;
