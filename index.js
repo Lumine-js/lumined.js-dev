@@ -2,8 +2,8 @@ const { EventEmitter } = require("node:events")
 class Client extends EventEmitter {
   constructor(options = {}) {
     super()
-    this.#token = options.token || null
-    this.#intents = options.intents || null
+    this.token = options.token || null
+    this.intents = options.intents || null
     
     //Client Data
     this.user = null
