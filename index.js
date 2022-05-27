@@ -1,10 +1,11 @@
 const { EventEmitter } = require("node:events")
+const WebSocket = require("ws");
 class Client extends EventEmitter {
   constructor(options = {}) {
     super()
     this.token = options.token || null
     this.intents = options.intents || null
-    
+
     //Client Data
     this.user = null
     this.channels = null
@@ -13,16 +14,15 @@ class Client extends EventEmitter {
   }
 
   login(token) {
-    if(this?.token === null) {
-      if(token === undefined) throw "Token Tidak Ada"
+    if (this?.token === null) {
+      if (token === undefined) throw "Token Tidak Ada"
     }
     if (this?.intents === undefined) throw "Intents Harus Terisi"
     const websocket = new WebSocket(this)
     this.startWebsocket()
   }
-  
+
   startWebsocket() {
-    const WebSocket = require("ws");
     const versionGATEWAY = '10';
     const OPCodes = {
       HEARTBEAT: 1,
