@@ -1,5 +1,5 @@
 # LumineDiscord.js
-Lumine.js (Discord) Custom Eris Library (For Aeryuma Project Usage)
+Lumine.js (Discord) To Interact With the Discord API 
 
 ## How To Login?
 
