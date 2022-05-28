@@ -3,14 +3,15 @@ const WebSocket = require("ws");
 class Client extends EventEmitter {
   constructor(options = {}) {
     super()
-    this.token = options?.token || null
-    this.intents = options?.intents || null
+
+    this.token = options?.token || null;
+    this.intents = options?.intents || null;
 
     //Client Data
-    this.user = null
-    this.channels = null
-    this.users = null
-    this.guilds = null
+    this.user = null;
+    this.channels = null;
+    this.users = null;
+    this.guilds = null;
   }
 
   login(token) {
@@ -18,9 +19,7 @@ class Client extends EventEmitter {
     if (this.token === null) {
       if (!token) throw new Error("Token Tidak Ada")
     }
-    if (this.intents === null) {
-      throw new Error("Intents Harus Terisi")
-    }
+    if (this.intents === null) throw new Error("Intents Harus Terisi")
     this.startWebsocket()
   }
 
