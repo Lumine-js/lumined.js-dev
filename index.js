@@ -14,10 +14,10 @@ class Client extends EventEmitter {
   }
 
   login(token) {
-    if (this?.token === null) {
+    if (this.token === null) {
       if (!token) throw new Error("Token Tidak Ada")
     }
-    if (this?.intents === null) {
+    if (this.intents === null) {
       throw new Error("Intents Harus Terisi")
     }
     this.startWebsocket()
