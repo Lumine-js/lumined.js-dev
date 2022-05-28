@@ -34,9 +34,6 @@ class Client extends EventEmitter {
     this.ws = new WebSocket(wssurl);
     
     let sequence = 0;
-    function send(op, d) {
-      this.ws.send({ op, d });
-    }.bind(this)
     this.ws.onopen = () => console.log('websocket opened!');
     this.ws.onclose = this.ws.onerror = (e) => {
       console.log(e);
@@ -49,9 +46,9 @@ class Client extends EventEmitter {
           console.log('Got op 10 HELLO');
           // set heartbeat interval
           if(packet.s) sequence = packet.s;
-          setInterval(() => send(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval);
+          setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval);
           // https://discordapi.com/topics/gateway#gateway-identify
-          send(OPCodes.IDENTIFY, {
+          this.sendWebsocket(OPCodes.IDENTIFY, {
             // you should put your token here _without_ the "Bot" prefix
             token: this.token,
             properties: {
@@ -73,6 +70,9 @@ class Client extends EventEmitter {
           break;
       }
     };
+  }
+  sendWebsocket(op, d) {
+    this.ws.send({ op, d });
   }
 }
 
