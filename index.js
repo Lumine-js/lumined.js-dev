@@ -25,13 +25,12 @@ class Client extends EventEmitter {
 
   startWebsocket() {
     let wssurl = `wss://gateway.discord.gg/?v=10&encoding=json`
-    /*
     const OPCodes = {
       HEARTBEAT: 1,
       IDENTIFY: 2,
       HELLO: 10,
       HEARTBEAT_ACK: 11,
-    };*/
+    };
     this.ws = new WebSocket(wssurl);
     
     let sequence = 0;
@@ -43,16 +42,16 @@ class Client extends EventEmitter {
       console.log(e);
     }
     this.ws.onmessage = ({ data }) => {
-      let packet = data
+      let packet = JSON.parse(data/
       console.log(packet)
       switch(packet.op) {
-        case 10:
+        case OPCodes.HELLO:
           console.log('Got op 10 HELLO');
           // set heartbeat interval
           if(packet.s) sequence = packet.s;
-          setInterval(() => send(1, sequence), packet.d.heartbeat_interval);
+          setInterval(() => send(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval);
           // https://discordapi.com/topics/gateway#gateway-identify
-          send(2, {
+          send(OPCodes.IDENTIFY, {
             // you should put your token here _without_ the "Bot" prefix
             token: this.token,
             properties: {
