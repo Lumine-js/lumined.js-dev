@@ -14,6 +14,7 @@ class Client extends EventEmitter {
   }
 
   login(token) {
+    console.log('Intents ' + this.intents)
     if (this.token === null) {
       if (!token) throw new Error("Token Tidak Ada")
     }
