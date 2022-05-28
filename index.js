@@ -42,7 +42,7 @@ class Client extends EventEmitter {
       console.log(e);
     }
     this.ws.onmessage = ({ data }) => {
-      let packet = JSON.parse(data/
+      let packet = JSON.parse(data)
       console.log(packet)
       switch(packet.op) {
         case OPCodes.HELLO:
