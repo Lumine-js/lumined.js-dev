@@ -6,7 +6,7 @@ class Client extends EventEmitter {
     super()
 
     this.token = options?.token || null;
-    this.#intents = options?.intents || null;
+    this.intents = options?.intents || null;
     if (options?.presence) {
       this.presence = validationPresence(this.presence)
     } else {
