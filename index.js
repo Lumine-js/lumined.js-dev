@@ -15,29 +15,30 @@ class Client extends EventEmitter {
 
     function validationPresence(presenceObject) {
       var presence = presenceObject
-      
-      switch(presence.activity.type.toLowerCase()) {
-        case "playing":
-          presence.activity.type = Constants.Status.Playing
-          break;
-        case "streaming":
-          presence.activity.type = Constants.Status.Streaming
-          break;
-        case "listening":
-          presence.activity.type = Constants.Status.Listening
-          break;
-        case "watching":
-          presence.activity.type = Constants.Status.Watching
-          break;
-        case "custom":
-          presence.activity.type = Constants.Status.Custom
-          break;
-        case "competing":
-          presence.activity.type = Constants.Status.Competing
-          break;
+
+      if (presence?.activity) {
+        switch (presence.activity.type.toLowerCase()) {
+          case "playing":
+            presence.activity.type = Constants.Status.Playing
+            break;
+          case "streaming":
+            presence.activity.type = Constants.Status.Streaming
+            break;
+          case "listening":
+            presence.activity.type = Constants.Status.Listening
+            break;
+          case "watching":
+            presence.activity.type = Constants.Status.Watching
+            break;
+          case "custom":
+            presence.activity.type = Constants.Status.Custom
+            break;
+          case "competing":
+            presence.activity.type = Constants.Status.Competing
+            break;
+        }
+        presence.activities = [this.presence.activity]
       }
-      
-      presence.activities = [this.presence.activity]
       return presence
     }
 
@@ -60,7 +61,7 @@ class Client extends EventEmitter {
   destroy() {
     return this.ws.destroy()
   }
-  
+
   startWebsocket() {
     let wssurl = `wss://gateway.discord.gg/?v=10&encoding=json`
     const OPCodes = {
@@ -88,8 +89,8 @@ class Client extends EventEmitter {
         },
         intents: this.intents
       }
-      
-      if(this.presence) BotObjectLogin.presence = this.presence
+
+      if (this.presence) BotObjectLogin.presence = this.presence
 
       switch (packet.op) {
         case OPCodes.HELLO:
@@ -112,7 +113,7 @@ class Client extends EventEmitter {
       }
     };
   }
-  
+
   sendWebsocket(op, d) {
     this.ws.send(JSON.stringify({ op: op, d: d }));
   }
