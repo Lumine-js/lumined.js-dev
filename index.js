@@ -43,8 +43,8 @@ class Client extends EventEmitter {
     }
     this.ws.onmessage = ({ data }) => {
       let packet = data
-  
-      switch(data.op) {
+      console.log(packet)
+      switch(packet.op) {
         case OPCodes.HELLO:
           console.log('Got op 10 HELLO');
           // set heartbeat interval
@@ -61,7 +61,6 @@ class Client extends EventEmitter {
             },
             intents: this.intents
           });
-          break;
       }
 
       // handle gateway packet types
