@@ -37,7 +37,7 @@ class Client extends EventEmitter {
           break;
       }
       
-      return presence
+      this.presence.activities = [this.presence.activity]
     }
 
 
