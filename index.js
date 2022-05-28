@@ -43,9 +43,8 @@ class Client extends EventEmitter {
     }
     this.ws.onmessage = ({ data }) => {
       let packet = data
-      console.log(packet)
-      // handle gateway ops
-      switch(packet.op) {
+  
+      switch(data.op) {
         case OPCodes.HELLO:
           console.log('Got op 10 HELLO');
           // set heartbeat interval
@@ -54,13 +53,13 @@ class Client extends EventEmitter {
           // https://discordapi.com/topics/gateway#gateway-identify
           send(OPCodes.IDENTIFY, {
             // you should put your token here _without_ the "Bot" prefix
-            token: this?.token,
+            token: this.token,
             properties: {
               $os: "Lumine.js",
               $browser: 'Lumine.js',
               $device: "linux",
             },
-            intents: this?.intents
+            intents: this.intents
           });
           break;
       }
