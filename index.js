@@ -42,10 +42,10 @@ class Client extends EventEmitter {
       console.log(e);
     }
     this.ws.onmessage = ({ data }) => {
-      const packet = data
+      let packet = data
       console.log(packet)
       // handle gateway ops
-      switch (packet.op) {
+      switch(packet.op) {
         case OPCodes.HELLO:
           console.log('Got op 10 HELLO');
           // set heartbeat interval
