@@ -44,7 +44,7 @@ class Client extends EventEmitter {
     }
     this.ws.onmessage = ({ data }) => {
       let packet = data
-      console.log(packet)
+      console.log(packet.op)
       switch(packet.op) {
         case 10:
           console.log('Got op 10 HELLO');
