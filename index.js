@@ -37,7 +37,7 @@ class Client extends EventEmitter {
             presence.activity.type = Constants.Status.Competing
             break;
         }
-        presence.activities = [this.presence.activity]
+        presence.activities = [presence.activity]
       }
       return presence
     }
