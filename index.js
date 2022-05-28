@@ -72,7 +72,7 @@ class Client extends EventEmitter {
     };
   }
   sendWebsocket(op, d) {
-    this.ws.send({ op, d });
+    this.ws.send({op: op,d: d });
   }
 }
 
