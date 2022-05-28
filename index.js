@@ -8,7 +8,7 @@ class Client extends EventEmitter {
     this.token = options?.token || null;
     this.intents = options?.intents || null;
     if (options?.presence) {
-      this.presence = validationPresence(this.presence)
+      this.presence = validationPresence(options?.presence)
     } else {
       this.presence = null;
     }
@@ -16,28 +16,29 @@ class Client extends EventEmitter {
     function validationPresence(presenceObject) {
       var presence = presenceObject
       
-      switch(this.presence.activity.type.toLowerCase()) {
+      switch(presence.activity.type.toLowerCase()) {
         case "playing":
-          this.presence.activity.type = Constants.Status.Playing
+          presence.activity.type = Constants.Status.Playing
           break;
         case "streaming":
-          this.presence.activity.type = Constants.Status.Streaming
+          presence.activity.type = Constants.Status.Streaming
           break;
         case "listening":
-          this.presence.activity.type = Constants.Status.Listening
+          presence.activity.type = Constants.Status.Listening
           break;
         case "watching":
-          this.presence.activity.type = Constants.Status.Watching
+          presence.activity.type = Constants.Status.Watching
           break;
         case "custom":
-          this.presence.activity.type = Constants.Status.Custom
+          presence.activity.type = Constants.Status.Custom
           break;
         case "competing":
-          this.presence.activity.type = Constants.Status.Competing
+          presence.activity.type = Constants.Status.Competing
           break;
       }
       
-      this.presence.activities = [this.presence.activity]
+      presence.activities = [this.presence.activity]
+      return presence
     }
 
 
