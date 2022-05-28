@@ -23,6 +23,9 @@ class Client extends EventEmitter {
     this.startWebsocket()
   }
 
+  destroy() {
+    return this.ws.destroy()
+  }
   startWebsocket() {
     let wssurl = `wss://gateway.discord.gg/?v=10&encoding=json`
     const OPCodes = {
@@ -40,7 +43,7 @@ class Client extends EventEmitter {
     }
     this.ws.onmessage = ({ data }) => {
       let packet = JSON.parse(data)
-      console.log(packet)
+
       switch(packet.op) {
         case OPCodes.HELLO:
           console.log('Got op 10 HELLO');
