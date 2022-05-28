@@ -1,11 +1,45 @@
 const { EventEmitter } = require("node:events")
+const Constants = require("./src/util/constants.js")
 const WebSocket = require("ws");
 class Client extends EventEmitter {
   constructor(options = {}) {
     super()
 
     this.token = options?.token || null;
-    this.intents = options?.intents || null;
+    this.#intents = options?.intents || null;
+    if (options?.presence) {
+      this.presence = validationPresence(this.presence)
+    } else {
+      this.presence = null;
+    }
+
+    function validationPresence(presenceObject) {
+      var presence = presenceObject
+      
+      switch(this.presence.activity.type.toLowerCase()) {
+        case "playing":
+          this.presence.activity.type = Constants.Status.Playing
+          break;
+        case "streaming":
+          this.presence.activity.type = Constants.Status.Streaming
+          break;
+        case "listening":
+          this.presence.activity.type = Constants.Status.Listening
+          break;
+        case "watching":
+          this.presence.activity.type = Constants.Status.Watching
+          break;
+        case "custom":
+          this.presence.activity.type = Constants.Status.Custom
+          break;
+        case "competing":
+          this.presence.activity.type = Constants.Status.Competing
+          break;
+      }
+      
+      return presence
+    }
+
 
     //Client Data
     this.user = null;
@@ -26,7 +60,8 @@ class Client extends EventEmitter {
   destroy() {
     return this.ws.destroy()
   }
-  startWebsocket() {
+  
+  #startWebsocket() {
     let wssurl = `wss://gateway.discord.gg/?v=10&encoding=json`
     const OPCodes = {
       HEARTBEAT: 1,
@@ -35,7 +70,7 @@ class Client extends EventEmitter {
       HEARTBEAT_ACK: 11,
     };
     this.ws = new WebSocket(wssurl);
-    
+
     let sequence = 0;
     this.ws.onopen = () => console.log('websocket opened!');
     this.ws.onclose = this.ws.onerror = (e) => {
@@ -43,28 +78,31 @@ class Client extends EventEmitter {
     }
     this.ws.onmessage = ({ data }) => {
       let packet = JSON.parse(data)
+      let BotObjectLogin = {
+        // you should put your token here _without_ the "Bot" prefix
+        token: this.token,
+        properties: {
+          $os: "Lumine.js",
+          $browser: 'Lumine.js',
+          $device: "linux",
+        },
+        intents: this.intents
+      }
+      
+      if(this.presence) BotObjectLogin.presence = this.presence
 
-      switch(packet.op) {
+      switch (packet.op) {
         case OPCodes.HELLO:
           console.log('Got op 10 HELLO');
           // set heartbeat interval
-          if(packet.s) sequence = packet.s;
+          if (packet.s) sequence = packet.s;
           setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval);
           // https://discordapi.com/topics/gateway#gateway-identify
-          this.sendWebsocket(OPCodes.IDENTIFY, {
-            // you should put your token here _without_ the "Bot" prefix
-            token: this.token,
-            properties: {
-              $os: "Lumine.js",
-              $browser: 'Lumine.js',
-              $device: "linux",
-            },
-            intents: this.intents
-          });
+          this.sendWebsocket(OPCodes.IDENTIFY, BotObjectLogin);
       }
 
       // handle gateway packet types
-      if(!packet.t) return;
+      if (!packet.t) return;
       switch (packet.t) {
         // we should get this after we send identify
         case 'READY':
@@ -74,8 +112,9 @@ class Client extends EventEmitter {
       }
     };
   }
-  sendWebsocket(op, d) {
-    this.ws.send(JSON.stringify({op: op,d: d }));
+  
+  #sendWebsocket(op, d) {
+    this.ws.send(JSON.stringify({ op: op, d: d }));
   }
 }
 
