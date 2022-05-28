@@ -49,7 +49,6 @@ class Client extends EventEmitter {
   }
 
   login(token) {
-    console.log('Intents ' + this.intents)
     if (this.token === null) {
       if (!token) throw new Error("Token Tidak Ada")
     }
@@ -61,7 +60,7 @@ class Client extends EventEmitter {
     return this.ws.destroy()
   }
   
-  #startWebsocket() {
+  startWebsocket() {
     let wssurl = `wss://gateway.discord.gg/?v=10&encoding=json`
     const OPCodes = {
       HEARTBEAT: 1,
@@ -113,7 +112,7 @@ class Client extends EventEmitter {
     };
   }
   
-  #sendWebsocket(op, d) {
+  sendWebsocket(op, d) {
     this.ws.send(JSON.stringify({ op: op, d: d }));
   }
 }
