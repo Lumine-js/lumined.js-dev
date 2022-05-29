@@ -113,8 +113,8 @@ class Client extends EventEmitter {
           break;
         case 'INTERACTION_CREATE':
           if(packet.d.type === 2 && packet.d.data.type === 1) {
-            this.emit('interactionCreate', new CommandInputInteraction(packet.d))
-            this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d))
+            this.emit('interactionCreate', new CommandInputInteraction(packet.d, this))
+            this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
           break;
       }
