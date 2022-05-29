@@ -4,6 +4,8 @@ const APIDiscord = require("./../util/APIDiscord.js")
 const Constants = require("./../util/constants.js")
 class ChatInputInteraction extends BaseInteraction {
   constructor(options = {}, client) {
+    super()
+    
     this.client = client || null;
 
     this.rawdata = options
