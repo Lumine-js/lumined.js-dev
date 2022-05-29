@@ -22,6 +22,7 @@ class ChatInputInteraction extends BaseInteraction {
   }
 
   reply(msgdata) {
+    console.log(Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token))
     this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type: 4,
       data: msgdata
