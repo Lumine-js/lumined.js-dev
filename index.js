@@ -1,7 +1,13 @@
-const { EventEmitter } = require("node:events")
+//========== STRUCTURE DATA
 const Constants = require("./src/util/constants.js")
 const CommandInputInteraction = require("./src/structure/ChatInputInteraction.js")
+
+//========== PACKAGE
+const { EventEmitter } = require("node:events")
+const fetch = require('node-fetch')
 const WebSocket = require("ws");
+
+//========= CLASS
 class Client extends EventEmitter {
   constructor(options = {}) {
     super()
@@ -112,7 +118,7 @@ class Client extends EventEmitter {
           this.emit("ready", packet.d.user)
           break;
         case 'INTERACTION_CREATE':
-          if(packet.d.type === 2 && packet.d.data.type === 1) {
+          if (packet.d.type === 2 && packet.d.data.type === 1) {
             this.emit('interactionCreate', new CommandInputInteraction(packet.d, this))
             this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
@@ -123,6 +129,18 @@ class Client extends EventEmitter {
 
   sendWebsocket(op, d) {
     this.ws.send(JSON.stringify({ op: op, d: d }));
+  }
+
+  requestAPI(method = "", params = "", data) {
+    const object = {
+      headers: {}
+    }
+    object.headers["Authorization"] = `Bot ${this.token}`
+    if (data) object["data"] = data
+
+    return fetch("https://discord.com/api/v10" + params, object).then(res => {
+      return res
+      })
   }
 }
 
