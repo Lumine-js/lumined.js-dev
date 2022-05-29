@@ -1,7 +1,7 @@
 const fetch = require('node-fetch')
 function APIDiscord(method = "", params = "", token = "", data) {
   const object = {
-    headers: []
+    headers: {}
   }
   object.headers["Authorization"] = `Bot ${token}`
   if(data) object["data"] = data
