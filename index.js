@@ -1,5 +1,6 @@
 const { EventEmitter } = require("node:events")
 const Constants = require("./src/util/constants.js")
+const CommandInputInteraction = require("./src/structure/ChatInputInteraction.js")
 const WebSocket = require("ws");
 class Client extends EventEmitter {
   constructor(options = {}) {
@@ -109,6 +110,12 @@ class Client extends EventEmitter {
         case 'READY':
           console.log('ready as', packet.d.user);
           this.emit("ready", packet.d.user)
+          break;
+        case 'INTERACTION_CREATE':
+          if(packet.d.type === 2 && packet.d.data.type === 1) {
+            this.emit('interactionCreate', new CommandInputInteraction(packet.d))
+            this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d))
+          }
           break;
       }
     };
