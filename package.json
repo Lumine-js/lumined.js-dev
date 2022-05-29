@@ -3,6 +3,7 @@
   "author":"Kanaka Nakazawa",
   "version":"v1.0.0-experimental",
   "dependencies":{
-    "ws": "^8.5.0"
+    "ws": "^8.5.0",
+    "node-fetch": "^2.6.7"
   }
 }
