@@ -6,7 +6,7 @@ function APIDiscord(method = "", params = "", token = "", data) {
   object.headers["Authorization"] = `Bot ${token}`
   if(data) object["data"] = data
   
-  fetch("https://discord.com/api/v10" + params, object)
+  return fetch("https://discord.com/api/v10" + params, object).then(res => res)
 }
 
 module.exports = APIDiscord
