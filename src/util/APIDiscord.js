@@ -1,3 +1,4 @@
+const fetch = require('node-fetch')
 function APIDiscord(method = "", params = "", token = "", data) {
   const object = {
     headers: []
