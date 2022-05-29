@@ -4,7 +4,7 @@ const CommandInputInteraction = require("./src/structure/ChatInputInteraction.js
 
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
-const fetch = require('node-fetch')
+const axios = require('axios')
 const WebSocket = require("ws");
 
 //========= CLASS
@@ -132,15 +132,17 @@ class Client extends EventEmitter {
   }
 
   requestAPI(method = "", params = "", data) {
-    const object = {
-      headers: {}
+    let object = {
+      method: method,
+      url: "https://discord.com/api/v10" + params,
+      headers: {
+        Authorization: `Bot ${process.env.token}`,
+      }
     }
-    object.headers["Authorization"] = `Bot ${this.token}`
-    if (data) object["data"] = data
-
-    return fetch("https://discord.com/api/v10" + params, object).then(res => {
-      return res
-      })
+    
+    if(data) object.data = data
+      
+    return axios(object)
   }
 }
 
