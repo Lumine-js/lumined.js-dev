@@ -21,7 +21,7 @@ class ChatInputInteraction extends BaseInteraction {
   reply(msgdata) {
     APIDiscord("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), this.client.token, {
       type:4,
-      data:data
+      data:msgdata
     })
   }
   
