@@ -1,32 +1,35 @@
+//========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
 const OptionsManager = require("./../cache/CommandOptions.js")
-const APIDiscord = require("./../util/APIDiscord.js")
 const Constants = require("./../util/constants.js")
+
+//========== CLASS
 class ChatInputInteraction extends BaseInteraction {
-  constructor(options = {}, client) {
+  constructor(options, client) {
     super()
-    
+
     this.client = client || null;
 
+    var daneta = JSON.parse(JSON.stringify(options))
     this.rawdata = options
-    this.name = options?.data?.name || null
-    this.description = options?.data?.description || null
-    this.name_localizations = options?.data?.name_localizations || null
-    this.description_localizations = options?.data?.description_localizations || null
-    this.options = new OptionsManager(options?.data?.options)
-    this.token = options?.token || null
-    this.id = options?.id || null
+    this.name = daneta?.data?.name || null
+    this.description = daneta?.data?.description || null
+    this.name_localizations = daneta?.data?.name_localizations || null
+    this.description_localizations = daneta?.data?.description_localizations || null
+    this.options = new OptionsManager(daneta?.data?.options)
+    this.token = daneta?.token || null
+    this.id = daneta?.id || null
   }
-  
+
   reply(msgdata) {
-    APIDiscord("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), this.client.token, {
-      type:4,
-      data:msgdata
+    this.client.request("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+      type: 4,
+      data: msgdata
     })
   }
-  
+
   deferReply(msgdata) {
-    
+
   }
 }
 
