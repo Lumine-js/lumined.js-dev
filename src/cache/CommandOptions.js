@@ -1,7 +1,7 @@
 const OptionsType = require("./../util/constants.js").OptionType
 class CommandOptions {
   constructor(options) {
-    this.options = options || null
+    this = options || null
   }
   
   getSubcommandGroup(key, required = false) {
