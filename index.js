@@ -116,7 +116,7 @@ class Client extends EventEmitter {
         case 'READY':
           console.log('ready as', packet.d.user);
           this.emit("ready", packet.d.user)
-          var user = packet.d
+          var user = packet.d.user
           this.id = user.id
           this.username = user.username
           break;
