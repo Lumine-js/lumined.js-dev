@@ -116,6 +116,9 @@ class Client extends EventEmitter {
         case 'READY':
           console.log('ready as', packet.d.user);
           this.emit("ready", packet.d.user)
+          var user = packet.d
+          this.id = user.id
+          this.username = user.username
           break;
         case 'INTERACTION_CREATE':
           if (packet.d.type === 2 && packet.d.data.type === 1) {
