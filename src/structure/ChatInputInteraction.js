@@ -29,8 +29,10 @@ class ChatInputInteraction extends BaseInteraction {
     })
   }
 
-  deferReply(msgdata) {
-
+  deferReply() {
+    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+      type:5
+    })
   }
 }
 
