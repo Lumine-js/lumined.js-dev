@@ -39,7 +39,7 @@ class ChatInputInteraction extends BaseInteraction {
   }
   
   editReply(msgdata) {
-    this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.id, this.token), msgdata)
+    this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.client.id, this.token), msgdata)
   }
 }
 
