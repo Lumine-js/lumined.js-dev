@@ -7,9 +7,9 @@ const Constants = require("./../util/constants.js")
 class ChatInputInteraction extends BaseInteraction {
   constructor(options, client) {
     super()
-
+    
     this.client = client || null;
-
+    
     var daneta = JSON.parse(JSON.stringify(options))
     this.rawdata = options
     this.name = daneta?.data?.name || null
@@ -20,19 +20,26 @@ class ChatInputInteraction extends BaseInteraction {
     this.token = daneta?.token || null
     this.id = daneta?.id || null
   }
-
+  
   reply(msgdata) {
-    console.log(Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token))
     this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type: 4,
-      data: msgdata
+      type:4,
+      data:msgdata
     })
   }
-
+  
   deferReply() {
     this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type:5
     })
+  }
+  
+  followUp() {
+    
+  }
+  
+  editReply(msgdata) {
+    this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.id, this.token), msgdata)
   }
 }
 
