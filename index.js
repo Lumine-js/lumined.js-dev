@@ -2,6 +2,7 @@ const Client = require("./src/client/Client.js")
 const Constants = require('./src/util/constants.js')
 
 module.exports = {
+  Client: Client,
   Embed: require('clorynin').Embed,
   ActionRow: require('clorynin').ActionRow,
   Modal: require('clorynin').Modal,
