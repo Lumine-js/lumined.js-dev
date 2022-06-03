@@ -145,10 +145,8 @@ class Client extends EventEmitter {
     
     if(data) object.data = data
       
-    return axios(object).then(x => {
-      if(x.status === 400) {
-        throw new Error('Error :' + x.data)
-      }
+    return axios(object).then(x => "").catch(err => {
+      console.log(err)
     })
   }
 }
