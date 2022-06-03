@@ -146,7 +146,15 @@ class Client extends EventEmitter {
     if(data) object.data = data
       
     return axios(object).then(x => "").catch(err => {
-      console.log(err)
+      if(err.response.status === 400) {
+        var DiscordERROR = err.response.data
+        console.log('DiscordApiError : \n' + {
+          code: DiscordERROR.code,
+          message: DiscordERROR.message,
+          error: DiscordERROR.errors
+        })
+      }
+      
     })
   }
 }
