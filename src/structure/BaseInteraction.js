@@ -4,6 +4,10 @@ class BaseInteraction {
     this.rawdata = null
   }
   
+  isCommand() {
+    if(this.rawdata.type === 2) return true
+  }
+  
   isChatInputCommand() {
     if(this.rawdata.type === 2) {
       if(this.rawdata.data.type === 1) return true
