@@ -11,7 +11,7 @@ module.exports = {
   TextInput: require('clorynin').TextInput,
   Command: require('clorynin').Command,
   Resolver: {
-    CommandOptionType: Constants.OptionType,
+    CommandOptionType: require('clorynin').CommandOptionType,
     CommandPermissionType: require('clorynin').CommandPermissionType,
     CommandType: require('clorynin').CommandType,
     ButtonStyle: require('clorynin').ButtonStyle,
