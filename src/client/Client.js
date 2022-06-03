@@ -1,6 +1,6 @@
 //========== STRUCTURE DATA
-const Constants = require("./src/util/constants.js")
-const CommandInputInteraction = require("./src/structure/ChatInputInteraction.js")
+const Constants = require("./../util/constants.js")
+const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
 
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
