@@ -1,5 +1,4 @@
 const Client = require("./src/client/Client.js")
-const Constants = require('./src/util/constants.js')
 
 module.exports = {
   Client: Client,
