@@ -139,7 +139,7 @@ class Client extends EventEmitter {
       method: method,
       url: "https://discord.com/api/v10" + params,
       headers: {
-        Authorization: `Bot ${process.env.token}`,
+        Authorization: `Bot ${this.token}`,
       }
     }
     
