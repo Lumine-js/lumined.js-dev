@@ -23,5 +23,6 @@ module.exports.OptionType = {
 
 module.exports.ENDPOINTS = {
   RESPOND_INTERACTION: (interaction_id, interaction_token) => `/interactions/${interaction_id}/${interaction_token}/callback`,
-  EDIT_INTERACTION: (application_id, interaction_token) => `/webhooks/${application_id}/${interaction_token}/messages/@original`
+  EDIT_INTERACTION: (application_id, interaction_token) => `/webhooks/${application_id}/${interaction_token}/messages/@original`,
+  FOLLOWUP_INTERACTION: (application_id, interaction_id) => `/webhooks/${application_id}/${interaction_token}`
 }
