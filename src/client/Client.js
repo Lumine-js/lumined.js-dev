@@ -1,7 +1,7 @@
 //========== STRUCTURE DATA
 const Constants = require("./../util/constants.js")
 const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
-const ButtonInteraction = require('./../structure/ButtonInteraction.js')
+//const ButtonInteraction = require('./../structure/ButtonInteraction.js')
 
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
@@ -72,9 +72,9 @@ class Client extends EventEmitter {
   
   postCommand(commandsarray, guildid = "") {
     if(guildid === "") {
-      requestAPI("POST", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
+      this.requestAPI("POST", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
     } else {
-      requestAPI("POST", Constants.ENDPOINTS.GUILD_COMMANDS(this.id, guildid), commandsarray)
+      this.requestAPI("POST", Constants.ENDPOINTS.GUILD_COMMANDS(this.id, guildid), commandsarray)
     }
   }
 
