@@ -1,6 +1,7 @@
 //========== STRUCTURE DATA
 const Constants = require("./../util/constants.js")
 const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
+const ButtonInteraction = require('./../structure/ButtonInteraction.js')
 
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
@@ -68,6 +69,14 @@ class Client extends EventEmitter {
   destroy() {
     return this.ws.destroy()
   }
+  
+  postCommand(commandsarray, guildid = "") {
+    if(guildid === "") {
+      requestAPI("POST", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
+    } else {
+      requestAPI("POST", Constants.ENDPOINTS.GUILD_COMMANDS(this.id, guildid), commandsarray)
+    }
+  }
 
   startWebsocket() {
     let wssurl = `wss://gateway.discord.gg/?v=10&encoding=json`
@@ -125,6 +134,11 @@ class Client extends EventEmitter {
             this.emit('interactionCreate', new CommandInputInteraction(packet.d, this))
             this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
+          
+          if(packet.d.type === 3) {
+            this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
+            this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
+          }
           break;
       }
     };
@@ -148,10 +162,10 @@ class Client extends EventEmitter {
     return axios(object).then(x => "").catch(err => {
       if(err.response.status === 400) {
         var DiscordERROR = err.response.data
-        console.log('DiscordApiError : \n' + `{
-          code: ${DiscordERROR.code},
-          message: ${DiscordERROR.message},
-          error: ${JSON.stringify(DiscordERROR.errors)}
+        console.log('DiscordApiError : ' + `{
+          "code": ${DiscordERROR.code},
+          "message": ${DiscordERROR.message},
+          "error": ${JSON.stringify(DiscordERROR.errors)}
         }`)
       }
       
