@@ -72,9 +72,9 @@ class Client extends EventEmitter {
   
   postCommand(commandsarray, guildid) {
     if(!guildid) {
-      this.requestAPI("POST", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
+      this.requestAPI("PUT", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
     } else {
-      this.requestAPI("POST", Constants.ENDPOINTS.GUILD_COMMANDS(this.id, guildid), commandsarray)
+      this.requestAPI("PUT", Constants.ENDPOINTS.GUILD_COMMANDS(this.id, guildid), commandsarray)
     }
   }
 
@@ -175,3 +175,4 @@ class Client extends EventEmitter {
 }
 
 module.exports = Client
+.
