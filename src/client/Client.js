@@ -70,8 +70,8 @@ class Client extends EventEmitter {
     return this.ws.destroy()
   }
   
-  postCommand(commandsarray, guildid = "") {
-    if(guildid === "") {
+  postCommand(commandsarray, guildid) {
+    if(!guildid) {
       this.requestAPI("POST", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
     } else {
       this.requestAPI("POST", Constants.ENDPOINTS.GUILD_COMMANDS(this.id, guildid), commandsarray)
