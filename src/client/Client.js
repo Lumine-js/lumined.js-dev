@@ -175,4 +175,4 @@ class Client extends EventEmitter {
 }
 
 module.exports = Client
-.
+
