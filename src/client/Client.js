@@ -165,7 +165,8 @@ class Client extends EventEmitter {
         console.log('DiscordApiError : ' + `{
           "code": ${DiscordERROR.code},
           "message": ${DiscordERROR.message},
-          "error": ${JSON.stringify(DiscordERROR.errors)}
+          "error": ${JSON.stringify(DiscordERROR.errors)},
+          "url": ${object.url}
         }`)
       }
       
