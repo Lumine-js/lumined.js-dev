@@ -1,6 +1,7 @@
 //========== STRUCTURE DATA
 const Constants = require("./../util/constants.js")
 const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
+const UserClient = require("./../structure/UserClient.js")
 //const ButtonInteraction = require('./../structure/ButtonInteraction.js')
 
 //========== PACKAGE
@@ -126,14 +127,18 @@ class Client extends EventEmitter {
           var user = packet.d.user
           this.id = user.id
           this.username = user.username
-          console.log('ready as', packet.d.user);
-          this.emit("ready", packet.d.user)
+          this.emit("ready", new UserClient(packet.d, this))
           break;
         case 'INTERACTION_CREATE':
           if (packet.d.type === 2 && packet.d.data.type === 1) {
             this.emit('interactionCreate', new CommandInputInteraction(packet.d, this))
             this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
+          
+          /*if(packet.d.type === 3) {
+            this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
+            this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
+          }*/
           break;
       }
     };
@@ -167,7 +172,10 @@ class Client extends EventEmitter {
       
     })
   }
+  
+  async getUser(userid = "") {
+    if(userid.length === 0) throw new Error("User ID Tidak Ada")
+  }
 }
 
 module.exports = Client
-
