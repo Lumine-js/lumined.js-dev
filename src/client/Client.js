@@ -134,11 +134,6 @@ class Client extends EventEmitter {
             this.emit('interactionCreate', new CommandInputInteraction(packet.d, this))
             this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
-          
-          /*if(packet.d.type === 3) {
-            this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
-            this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
-          }*/
           break;
       }
     };
