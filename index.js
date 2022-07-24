@@ -1,5 +1,6 @@
 const Client = require("./src/client/Client.js")
-
+const Constants = require('./src/util/constants.js')
+const Collection = require('./src/util/Collection.js')
 module.exports = {
   Client: Client,
   Embed: require('clorynin').Embed,
@@ -9,6 +10,7 @@ module.exports = {
   Button: require('clorynin').Button,
   TextInput: require('clorynin').TextInput,
   Command: require('clorynin').Command,
+  Collection:Collection,
   Resolver: {
     CommandOptionType: require('clorynin').CommandOptionType,
     CommandPermissionType: require('clorynin').CommandPermissionType,
