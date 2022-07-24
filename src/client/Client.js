@@ -26,27 +26,29 @@ class Client extends EventEmitter {
       var presence = presenceObject
 
       if (presence?.activity) {
-        switch (presence.activity.type.toLowerCase()) {
-          case "playing":
-            presence.activity.type = Constants.Status.Playing
-            break;
-          case "streaming":
-            presence.activity.type = Constants.Status.Streaming
-            break;
-          case "listening":
-            presence.activity.type = Constants.Status.Listening
-            break;
-          case "watching":
-            presence.activity.type = Constants.Status.Watching
-            break;
-          case "custom":
-            presence.activity.type = Constants.Status.Custom
-            break;
-          case "competing":
-            presence.activity.type = Constants.Status.Competing
-            break;
+        if (typeof presence.activity === "string") {
+          switch (presence.activity.type.toLowerCase()) {
+            case "playing":
+              presence.activity.type = Constants.Status.Playing
+              break;
+            case "streaming":
+              presence.activity.type = Constants.Status.Streaming
+              break;
+            case "listening":
+              presence.activity.type = Constants.Status.Listening
+              break;
+            case "watching":
+              presence.activity.type = Constants.Status.Watching
+              break;
+            case "custom":
+              presence.activity.type = Constants.Status.Custom
+              break;
+            case "competing":
+              presence.activity.type = Constants.Status.Competing
+              break;
+          }
+          presence.activities = [presence.activity]
         }
-        presence.activities = [presence.activity]
       }
       return presence
     }
@@ -70,9 +72,9 @@ class Client extends EventEmitter {
   destroy() {
     return this.ws.destroy()
   }
-  
+
   postCommand(commandsarray, guildid) {
-    if(!guildid) {
+    if (!guildid) {
       this.requestAPI("PUT", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
     } else {
       this.requestAPI("PUT", Constants.ENDPOINTS.GUILD_COMMANDS(this.id, guildid), commandsarray)
@@ -90,7 +92,7 @@ class Client extends EventEmitter {
     this.ws = new WebSocket(wssurl);
 
     let sequence = 0;
-    this.ws.onopen = () => console.log('websocket opened!');
+    this.ws.onopen = () => console.log('Lumine.js Succesfull To Connect Websocket');
     this.ws.onclose = this.ws.onerror = (e) => {
       console.log(e);
     }
@@ -111,7 +113,6 @@ class Client extends EventEmitter {
 
       switch (packet.op) {
         case OPCodes.HELLO:
-          console.log('Got op 10 HELLO');
           // set heartbeat interval
           if (packet.s) sequence = packet.s;
           setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval);
@@ -124,9 +125,7 @@ class Client extends EventEmitter {
       switch (packet.t) {
         // we should get this after we send identify
         case 'READY':
-          var user = packet.d.user
-          this.id = user.id
-          this.username = user.username
+          this.user = new UserClient(packet.d)
           this.emit("ready", new UserClient(packet.d, this))
           break;
         case 'INTERACTION_CREATE':
@@ -134,7 +133,7 @@ class Client extends EventEmitter {
             this.emit('interactionCreate', new CommandInputInteraction(packet.d, this))
             this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
-          
+
           /*if(packet.d.type === 3) {
             this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
             this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
@@ -156,11 +155,11 @@ class Client extends EventEmitter {
         Authorization: `Bot ${this.token}`,
       }
     }
-    
-    if(data) object.data = data
-      
+
+    if (data) object.data = data
+
     return axios(object).then(x => "").catch(err => {
-      if(err.response.status === 400) {
+      if (err.response.status === 400) {
         var DiscordERROR = err.response.data
         console.log('DiscordApiError : ' + `{
           "code": ${DiscordERROR.code},
@@ -169,12 +168,12 @@ class Client extends EventEmitter {
           "url": ${object.url}
         }`)
       }
-      
+
     })
   }
-  
+
   async getUser(userid = "") {
-    if(userid.length === 0) throw new Error("User ID Tidak Ada")
+    if (userid.length === 0) throw new Error("User ID Tidak Ada")
   }
 }
 
