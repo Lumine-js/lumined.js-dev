@@ -1,5 +1,6 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
+const OptionsManager = require("./../cache/CommandOptions.js")
 const Constants = require("./../util/constants.js")
 
 //========== CLASS
@@ -57,7 +58,7 @@ class ChatInputInteraction extends BaseInteraction {
   }
   
   getString(key, required = false) {
-    return this.options.find(x => x.name === keyjhx.type === OptionsType.STRING).h || null
+    return this.options.find(x => x.name === key && x.type === OptionsType.STRING).h || null
   }
   
   getNumber(key, required = false) {
