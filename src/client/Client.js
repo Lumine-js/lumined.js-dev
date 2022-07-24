@@ -77,7 +77,7 @@ class Client extends EventEmitter {
     if (!guildid) {
       this.requestAPI("PUT", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
     } else {
-      this.requestAPI("PUT", Constants.ENDPOINTS.GUILD_COMMANDS(this.id, guildid), commandsarray)
+      this.requestAPI("PUT", Constants.ENDPOINTS.GUILD_COMMANDS(this.user.id, guildid), commandsarray)
     }
   }
 
