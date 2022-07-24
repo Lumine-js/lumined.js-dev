@@ -1,5 +1,6 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
+const Constants =  require("./../util/constants.js")
 const { OptionType } = require("./../util/constants.js")
 
 //========== CLASS
