@@ -1,6 +1,6 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
-const { OptionsType } = require("./../util/constants.js")
+const { OptionType } = require("./../util/constants.js")
 
 //========== CLASS
 class ChatInputInteraction extends BaseInteraction {
@@ -49,49 +49,48 @@ class ChatInputInteraction extends BaseInteraction {
   }
   
   getSubcommandGroup(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.SUB_COMMAND_GROUP).value || null
+    return this.options.find(x => x.name === key && x.type === OptionType.SUB_COMMAND_GROUP).value || null
   }
   
   getSubcommand(key, required = true) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.SUB_COMMAND).value || null
+    return this.options.find(x => x.name === key && x.type === OptionType.SUB_COMMAND).value || null
   }
   
   getString(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.STRING).h || null
+    return this.options.find(x => x.name === key && x.type === OptionType.STRING).h || null
   }
   
   getNumber(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.NUMBER).value || null
+    return this.options.find(x => x.name === key && x.type === OptionType.NUMBER).value || null
   }
   
   getBoolean(key, required = false) {
-  return this.options.find(x => x.name === key && x.type === OptionsType.BOOLEAN).value || null
+  return this.options.find(x => x.name === key && x.type === OptionType.BOOLEAN).value || null
   }
   
   getInteger(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.INTEGER).value || null
+    return this.options.find(x => x.name === key && x.type === OptionType.INTEGER).value || null
   }
   
   getAttachment(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.ATTACHMENT).value || null 
+    return this.options.find(x => x.name === key && x.type === OptionType.ATTACHMENT).value || null 
   }
   
   getChannel(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.CHANNEL).value || null
+    return this.options.find(x => x.name === key && x.type === OptionType.CHANNEL).value || null
   }
   
   getUser(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.USER).value || null
+    return this.options.find(x => x.name === key && x.type === OptionType.USER).value || null
   }
   
   getMentionable(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.MENTIONABLE).value || null
+    return this.options.find(x => x.name === key && x.type === OptionType.MENTIONABLE).value || null
   }
   
   getRole(key, required = false) {
-    return this.options.find(x => x.name === key && x.type === OptionsType.ROLE).value || null
+    return this.options.find(x => x.name === key && x.type === OptionType.ROLE).value || null
   }
 }
 
 module.exports = ChatInputInteraction
- 
