@@ -1,7 +1,7 @@
 {
   "name":"lumined.js",
   "author":"Kanaka Nakazawa",
-  "version":"v1.22.7.24.0912",
+  "version":"v1.22.7.24.1530",
   "dependencies":{
     "clorynin": "github:CyndiralFanLover/clorynin",
     "ws": "^8.5.0",
