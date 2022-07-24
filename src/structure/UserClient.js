@@ -1,6 +1,8 @@
 const Base = require("./Base.js")
 class UserClient extends Base {
-  constructor(options = {}, client, unchached) {
+  constructor(options = {}, client) {
+    super()
+    this.recache = "user"
     this.id = options.user.id
     this.username = options.user.username
     this.discriminator = options.user.discriminator
