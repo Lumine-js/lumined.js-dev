@@ -1,7 +1,6 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
-const OptionsManager = require("./../cache/CommandOptions.js")
-const Constants = require("./../util/constants.js")
+const { OptionsType } = require("./../util/constants.js")
 
 //========== CLASS
 class ChatInputInteraction extends BaseInteraction {
@@ -95,3 +94,4 @@ class ChatInputInteraction extends BaseInteraction {
 }
 
 module.exports = ChatInputInteraction
+ 
