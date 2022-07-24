@@ -115,7 +115,7 @@ class Client extends EventEmitter {
         case OPCodes.HELLO:
           // set heartbeat interval
           if (packet.s) sequence = packet.s;
-          setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval);
+          setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval - 1000);
           // https://discordapi.com/topics/gateway#gateway-identify
           this.sendWebsocket(OPCodes.IDENTIFY, BotObjectLogin);
       }
