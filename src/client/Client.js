@@ -89,27 +89,30 @@ class Client extends EventEmitter {
       HELLO: 10,
       HEARTBEAT_ACK: 11,
     };
-    this.ws = new WebSocket(wssurl);
 
+    let BotObjectLogin = {
+      // you should put your token here _without_ the "Bot" prefix
+      token: this.token,
+      properties: {
+        $os: "Lumine.js",
+        $browser: 'Lumine.js',
+        $device: "linux",
+      },
+      intents: this.intents
+    }
+    if (this.presence) BotObjectLogin.presence = this.presence
+
+    this.ws = new WebSocket(wssurl);
     let sequence = 0;
     this.ws.onopen = () => console.log('Lumine.js Succesfull To Connect Websocket');
     this.ws.onclose = this.ws.onerror = (e) => {
-      console.log(e);
+      this.ws = null
+      console.log('Reconnect...')
+      this.startWebsocket()
     }
     this.ws.onmessage = ({ data }) => {
       let packet = JSON.parse(data)
-      let BotObjectLogin = {
-        // you should put your token here _without_ the "Bot" prefix
-        token: this.token,
-        properties: {
-          $os: "Lumine.js",
-          $browser: 'Lumine.js',
-          $device: "linux",
-        },
-        intents: this.intents
-      }
 
-      if (this.presence) BotObjectLogin.presence = this.presence
 
       switch (packet.op) {
         case OPCodes.HELLO:
