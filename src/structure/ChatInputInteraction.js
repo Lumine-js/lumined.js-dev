@@ -35,11 +35,11 @@ class ChatInputInteraction extends BaseInteraction {
   }
   
   followUp(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.FOLLOWUP_INTERACTION(this.client.id, this.token), msgdata)
+    this.client.requestAPI("POST", Constants.ENDPOINTS.FOLLOWUP_INTERACTION(this.client.user.id, this.token), msgdata)
   }
   
   editReply(msgdata) {
-    this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.client.id, this.token), msgdata)
+    this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.client.user.id, this.token), msgdata)
   }
   
   showModal(modaldata) {
