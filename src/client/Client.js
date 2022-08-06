@@ -89,7 +89,7 @@ class Client extends EventEmitter {
       HELLO: 10,
       HEARTBEAT_ACK: 11,
     };
-
+    
     let BotObjectLogin = {
       // you should put your token here _without_ the "Bot" prefix
       token: this.token,
@@ -101,13 +101,13 @@ class Client extends EventEmitter {
       intents: this.intents
     }
     if (this.presence) BotObjectLogin.presence = this.presence
-
+    
     this.ws = new WebSocket(wssurl);
     let sequence = 0;
     this.ws.onopen = () => console.log('Lumine.js Succesfull To Connect Websocket');
     this.ws.onclose = this.ws.onerror = (e) => {
       this.ws = null
-      console.log('Reconnect...')
+      console.log(' Reconnect...')
       this.startWebsocket()
     }
     this.ws.onmessage = ({ data }) => {
@@ -118,7 +118,7 @@ class Client extends EventEmitter {
         case OPCodes.HELLO:
           // set heartbeat interval
           if (packet.s) sequence = packet.s;
-          setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval - 1000);
+          setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval - 3000);
           // https://discordapi.com/topics/gateway#gateway-identify
           this.sendWebsocket(OPCodes.IDENTIFY, BotObjectLogin);
       }
@@ -130,6 +130,8 @@ class Client extends EventEmitter {
         case 'READY':
           this.user = new UserClient(packet.d)
           this.emit("ready", new UserClient(packet.d, this))
+          const packg = require("./../../package.json")
+          console.log(`====== Lumine.js (Project)\n${packg.name} - ${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
           break;
         case 'INTERACTION_CREATE':
           if (packet.d.type === 2 && packet.d.data.type === 1) {
@@ -161,7 +163,7 @@ class Client extends EventEmitter {
 
     if (data) object.data = data
 
-    return axios(object).then(x => "").catch(err => {
+    return axios(object.url).then(x => "").catch(err => {
       if (err.response.status === 400) {
         var DiscordERROR = err.response.data
         console.log('DiscordApiError : ' + `{
