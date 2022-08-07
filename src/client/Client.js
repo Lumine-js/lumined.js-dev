@@ -160,6 +160,7 @@ class Client extends EventEmitter {
         Authorization: `Bot ${this.token}`,
       }
     }
+    console.log(object)
 
     if (data) object.data = data
 
