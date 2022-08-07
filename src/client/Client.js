@@ -160,10 +160,9 @@ class Client extends EventEmitter {
         Authorization: `Bot ${this.token}`,
       }
     }
-    console.log(object)
 
     if (data) object.data = data
-
+    console.log(object)
     return axios(object.url).then(x => "").catch(err => {
       if (err.response.status === 400) {
         var DiscordERROR = err.response.data
