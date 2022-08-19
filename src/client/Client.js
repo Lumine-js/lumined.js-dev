@@ -124,7 +124,8 @@ class Client extends EventEmitter {
       }
 
       // handle gateway packet types
-      if (!packet.t) return;
+      if (!packet?.t) return;
+      this.emit('rawEvent', {t: packet.t, d: packet.d})
       switch (packet.t) {
         // we should get this after we send identify
         case 'READY':
