@@ -14,11 +14,11 @@ class ChatInputInteraction extends BaseInteraction {
     //this.rawdata = options
     this.name = daneta?.data?.name || null
     this.description = daneta?.data?.description || null
-    this.locale = daneta?.data?.locale || null
-    this.guildLocale = daneta?.data?.guild_locale || null
-    this.guildId = daneta?.data?.guild_id || null
-    this.channelId = daneta?.data?.channel_id || null
-    this.authorId = daneta?.data?.member?.user?.id || null
+    this.locale = daneta?.locale || null
+    this.guildLocale = daneta?.guild_locale || null
+    this.guildId = daneta?.guild_id || null
+    this.channelId = daneta?.channel_id || null
+    this.authorId = daneta?.member?.user?.id || null
     this.options = daneta?.data?.options || []
     this.token = daneta?.token || null
     this.id = daneta?.id || null
