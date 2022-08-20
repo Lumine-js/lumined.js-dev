@@ -2,7 +2,7 @@
 const Constants = require("./../util/constants.js")
 const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
 const UserClient = require("./../structure/UserClient.js")
-//const ButtonInteraction = require('./../structure/ButtonInteraction.js')
+const ButtonInteraction = require('./../structure/ButtonInteraction.js')
 
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
