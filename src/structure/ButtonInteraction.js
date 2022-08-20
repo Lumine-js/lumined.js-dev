@@ -34,6 +34,13 @@ class ButtonInteraction extends BaseInteraction {
     })
   }
 
+  update(msgdata) {
+    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+      type: 7,
+      data: msgdata
+    })
+  }
+
   showModal(modaldata) {
     this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type:9,
