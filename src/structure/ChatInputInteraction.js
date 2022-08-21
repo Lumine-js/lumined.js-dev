@@ -53,11 +53,11 @@ class ChatInputInteraction extends BaseInteraction {
   }
   
   getSubcommandGroup(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === OptionType.SUB_COMMAND_GROUP))?.name || null
+    return this.options.find(x => x.type === OptionType.SUB_COMMAND_GROUP)?.name || null
   }
   
-  getSubcommand(key, required = true) {
-    return this.options.find(x => (x.name === key && x.type === OptionType.SUB_COMMAND))?.name || this.options[0]?.options.find(x => (x.name === key && x.type === OptionType.SUB_COMMAND))?.name || null
+  getSubcommand() {
+    return this.options.find(x => x.type === OptionType.SUB_COMMAND)?.name || this.options[0]?.options.find(x => x.type === OptionType.SUB_COMMAND)?.name || null
   }
   
   getString(key, required = false) {
