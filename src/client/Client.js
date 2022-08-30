@@ -164,7 +164,10 @@ class Client extends EventEmitter {
 
     if (data) object.data = data
     
-    return axios(object).then(x => "").catch(err => {
+    return axios(object).then(x => 
+    {
+      return x.data
+    }).catch(err => {
       if (err.response.status === 400) {
         var DiscordERROR = err.response.data
         console.log('DiscordApiError : ' + `{
@@ -180,6 +183,12 @@ class Client extends EventEmitter {
 
   async getUser(userid = "") {
     if (userid.length === 0) throw new Error("User ID Tidak Ada")
+    return this.requestAPI("GET", Constants.ENDPOINTS.USER(userid))
+  }
+  
+  async getChannel(channelid = "") {
+    if(userid.length === 0) throw new Error("Channel ID Tidak Ada")
+    return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid))
   }
 }
 
