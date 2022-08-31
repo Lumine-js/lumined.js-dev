@@ -26,5 +26,7 @@ module.exports.ENDPOINTS = {
   EDIT_INTERACTION: (application_id, interaction_token) => `/webhooks/${application_id}/${interaction_token}/messages/@original`,
   FOLLOWUP_INTERACTION: (application_id, interaction_token) => `/webhooks/${application_id}/${interaction_token}`,
   GLOBAL_COMMANDS: (application_id) => `/applications/${application_id}/commands`,
-  GUILD_COMMANDS: (application_id, guild_id) => `/applications/${application_id}/guilds/${guild_id}/commands`
+  GUILD_COMMANDS: (application_id, guild_id) => `/applications/${application_id}/guilds/${guild_id}/commands`,
+  USER: (user_id) => `/users/${user_id}`,
+  CHANNEL: (channel_id) => `/channels/${channel_id}`
 }
