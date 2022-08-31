@@ -187,7 +187,7 @@ class Client extends EventEmitter {
   }
   
   async getChannel(channelid = "") {
-    if(userid.length === 0) throw new Error("Channel ID Tidak Ada")
+    if(channelid.length === 0) throw new Error("Channel ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid))
   }
 }
