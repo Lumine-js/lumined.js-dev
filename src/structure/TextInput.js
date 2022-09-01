@@ -1,0 +1,188 @@
+const { TextInputStyle } = require("./../util/constants.js")
+class TextInput {
+  constructor(data) {
+    this.type = 4
+    this.label = data?.label || null
+    this.placeholder =
+    this.custom_id = data?.custom_id || null
+    this.value = data?.value || null
+    this.style = data?.style || null
+    this.max_length = data?.max_length || null
+    this.min_length = data?.min_length || null
+    this.required = data?.required || false
+  }
+
+  setPlaceholder(placeholder) {
+    try {
+      if (!placeholder) {
+        console.log("(Clorynin Alert) Parameter Label Must Fill!")
+        return this
+      }
+      if (!typeof placeholder === "string") {
+        console.log("(Clorynin Alert) Parameter label Must Be A String")
+        return this
+      }
+      if (placeholder.length === 0) {
+        console.log("(Clorynin Alert) Parameter label Cannot Be Empty")
+        return this
+      }
+      if (placeholder.length > 100) {
+        console.log("(Clorynin Alert) Parameter placeholder Can't Be More Than 100 Letters")
+        return this
+      }
+      this.placeholder = placeholder
+      return this
+    } catch (err) {
+      console.log("(Clorynin Error) " + err)
+      return this
+    }
+  }
+
+  setLabel(label) {
+    try {
+      if (!label) {
+        console.log("(Clorynin Alert) Parameter Label Must Fill!")
+        return this
+      }
+      if (!typeof label === "string") {
+        console.log("(Clorynin Alert) Parameter label Must Be A String")
+        return this
+      }
+      if (label.length === 0) {
+        console.log("(Clorynin Alert) Parameter label Cannot Be Empty")
+        return this
+      }
+      if (label.length > 45) {
+        console.log("(Clorynin Alert) Parameter label Can't Be More Than 45 Letters")
+        return this
+      }
+      this.label = label
+      return this
+    } catch (err) {
+      console.log("(Clorynin Error) " + err)
+      return this
+    }
+  }
+
+  setValue(value) {
+    try {
+      if (!value) {
+        console.log("(Clorynin Alert) Parameter value Must Fill!")
+        return this
+      }
+      if (!typeof value === "string") {
+        console.log("(Clorynin Alert) Parameter value Must Be A String")
+        return this
+      }
+      if (value.length === 0) {
+        console.log("(Clorynin Alert) Parameter value Cannot Be Empty")
+        return this
+      }
+      if (value.length > 4000) {
+        console.log("(Clorynin Alert) Parameter value Can't Be More Than 4000 Letters")
+        return this
+      }
+      this.value = value
+      return this
+    } catch (err) {
+      console.log("(Clorynin Error) " + err)
+      return this
+    }
+  }
+
+  setCustomId(id) {
+    try {
+      if (!id) {
+        console.log("(Clorynin Alert) Parameter id Must Fill!")
+        return this
+      }
+      if (!typeof id === "string") {
+        console.log("(Clorynin Alert) Parameter id Must Be A String")
+        return this
+      }
+      if (id.length === 0) {
+        console.log("(Clorynin Alert) Parameter id Cannot Be Empty")
+        return this
+      }
+      if (id.length > 100) {
+        console.log("(Clorynin Alert) Parameter id Can't Be More Than 100 Letters")
+        return this
+      }
+      this.custom_id = id
+      return this
+    } catch (err) {
+      console.log("(Clorynin Error) " + err)
+      return this
+    }
+  }
+
+  setMinLength(value) {
+    if (!value) {
+      console.log("(Clorynin Alert) Parameter value Must Fill!")
+      return this
+    }
+    if (!typeof value === "number") {
+      console.log("(Clorynin Alert) Parameter value Must Be A Number")
+      return this
+    }
+    this.min_length = value
+  }
+  setMaxLength(value) {
+    if (!value) {
+      console.log("(Clorynin Alert) Parameter value Must Fill!")
+      return this
+    }
+    if (!typeof value === "number") {
+      console.log("(Clorynin Alert) Parameter value Must Be A Number")
+      return this
+    }
+    this.max_length = value
+  }
+
+  setStyle(style) {
+    try {
+      if (!style) {
+        console.log("(Clorynin Alert) Parameter style Must Fill!")
+        return this
+      }
+      if (typeof style === "number") {
+        if ((style > 2) && (style < 1)) {
+          console.log("(Clorynin Alert) Parameter style (With Number) Only From Numbers 1 - 2")
+          return this
+        }
+        this.style = style
+        return this
+      } else if (typeof style === "string") {
+        if (style.length === 0) {
+          console.log("(Clorynin Alert) Parameter style Cannot Be Empty")
+        }
+        if (!TextInputStyle(style)) {
+          console.log("(Clorynin Alert) Parameter style (With String) Invalid, Read Documentation Or Just Use Text Input Style")
+          return this
+        }
+        this.style = TextInputStyle(style)
+        return this
+      }
+    } catch (err) {
+      console.log("(Clorynin Error) " + err)
+      return this
+    }
+  }
+
+  setRequired(required) {
+    try {
+      if (!required || (!typeof required === "boolean")) {
+        this.required = false
+        return this
+      }
+      this.required = required
+    } catch (err) {
+      console.log("(Clorynin Error) " + err)
+      return this
+    }
+  }
+}
+
+module.exports = {
+  TextInput: TextInput
+}
