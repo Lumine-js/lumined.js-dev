@@ -18,33 +18,8 @@ class Client extends EventEmitter {
     this.intents = options?.intents || null;
 
     this.loginActivity = {
-      activities: [],
+      activities: options?.activities || [],
       status: options?.status || "online"
-    }
-
-
-    if (options?.activities) {
-      options.activities.forEach(n => {
-        switch (n.type) {
-          case "playing":
-            n.type = Constants.Status.Playing
-            break;
-          case "streaming":
-            n.type = Constants.Status.Streaming
-            break;
-          case "listening":
-            n.type = Constants.Status.Listening
-            break;
-          case "watching":
-            n.type = Constants.Status.Watching
-            break;
-          case "competing":
-            n.type = Constants.Status.Competing
-            break;
-        }
-        
-        this.loginActivity.activities.push({name:n?.name || null,type: n?.type || null, url: n?.url || null})
-      })
     }
   }
 
