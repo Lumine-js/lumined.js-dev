@@ -17,6 +17,7 @@ module.exports = {
     CommandType: require('clorynin').CommandType,
     ButtonStyle: require('clorynin').ButtonStyle,
     TextInputStyle: require('clorynin').TextInputStyle,
-    ResolveColor: require('clorynin').ResolveColor
+    ResolveColor: require('clorynin').ResolveColor,
+    ActivityType: require('clorynin').ActivityType
   }
 }
