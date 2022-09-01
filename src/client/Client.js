@@ -16,49 +16,36 @@ class Client extends EventEmitter {
 
     this.token = options?.token || null;
     this.intents = options?.intents || null;
-    if (options?.presence) {
-      this.presence = validationPresence(options?.presence)
-    } else {
-      this.presence = null;
+
+    this.loginActivity = {
+      activities: [],
+      status: options?.status || "online"
     }
 
-    function validationPresence(presenceObject) {
-      var presence = presenceObject
 
-      if (presence?.activity) {
-        if (typeof presence.activity === "string") {
-          switch (presence.activity.type.toLowerCase()) {
-            case "playing":
-              presence.activity.type = Constants.Status.Playing
-              break;
-            case "streaming":
-              presence.activity.type = Constants.Status.Streaming
-              break;
-            case "listening":
-              presence.activity.type = Constants.Status.Listening
-              break;
-            case "watching":
-              presence.activity.type = Constants.Status.Watching
-              break;
-            case "custom":
-              presence.activity.type = Constants.Status.Custom
-              break;
-            case "competing":
-              presence.activity.type = Constants.Status.Competing
-              break;
-          }
-          presence.activities = [presence.activity]
+    if (options?.activities) {
+      options.activities.forEach(n => {
+        switch (n.type) {
+          case "playing":
+            n.type = Constants.Status.Playing
+            break;
+          case "streaming":
+            n.type = Constants.Status.Streaming
+            break;
+          case "listening":
+            n.type = Constants.Status.Listening
+            break;
+          case "watching":
+            n.type = Constants.Status.Watching
+            break;
+          case "competing":
+            n.type = Constants.Status.Competing
+            break;
         }
-      }
-      return presence
+        
+        this.loginActivity.activities.push({name:n?.name || null,type: n?.type || null, url: n?.url || null})
+      })
     }
-
-
-    //Client Data
-    this.user = null;
-    this.channels = null;
-    this.users = null;
-    this.guilds = null;
   }
 
   login(token) {
@@ -89,7 +76,7 @@ class Client extends EventEmitter {
       HELLO: 10,
       HEARTBEAT_ACK: 11,
     };
-    
+
     let BotObjectLogin = {
       // you should put your token here _without_ the "Bot" prefix
       token: this.token,
@@ -100,8 +87,8 @@ class Client extends EventEmitter {
       },
       intents: this.intents
     }
-    if (this.presence) BotObjectLogin.presence = this.presence
-    
+    if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
+
     this.ws = new WebSocket(wssurl);
     let sequence = 0;
     this.ws.onopen = () => console.log('Lumine.js Succesfull To Connect Websocket');
@@ -125,7 +112,7 @@ class Client extends EventEmitter {
 
       // handle gateway packet types
       if (!packet?.t) return;
-      this.emit('rawEvent', {t: packet.t, d: packet.d})
+      this.emit('rawEvent', { t: packet.t, d: packet.d })
       switch (packet.t) {
         // we should get this after we send identify
         case 'READY':
@@ -140,7 +127,7 @@ class Client extends EventEmitter {
             this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
 
-          if(packet.d.type === 3) {
+          if (packet.d.type === 3) {
             this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
             this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
           }
@@ -163,8 +150,8 @@ class Client extends EventEmitter {
     }
 
     if (data) object.data = data
-    
-    return axios(object).then(x => 
+
+    return axios(object).then(x =>
     {
       return x.data
     }).catch(err => {
@@ -185,9 +172,9 @@ class Client extends EventEmitter {
     if (userid.length === 0) throw new Error("User ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.USER(userid))
   }
-  
+
   async getChannel(channelid = "") {
-    if(channelid.length === 0) throw new Error("Channel ID Tidak Ada")
+    if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid))
   }
 }
