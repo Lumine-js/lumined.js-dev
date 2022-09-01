@@ -115,15 +115,20 @@ class Client extends EventEmitter {
     this.ws.send(JSON.stringify({ op: op, d: d }));
   }
 
-  requestAPI(method = "", params = "", data) {
+  requestAPI(method = "", params = "", data, headers) {
     let object = {
       method: method,
       url: "https://discord.com/api/v10" + params,
       headers: {
-        Authorization: `Bot ${this.token}`,
+        Authorization: `Bot ${this.token}`
       }
     }
-
+    
+    if(headers) {
+      object.headers = headers
+      object.headers.Authorization = `Bot ${this.token}`
+    }
+    
     if (data) object.data = data
 
     return axios(object).then(x =>
