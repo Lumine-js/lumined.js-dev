@@ -89,7 +89,7 @@ class ChatInputInteraction extends BaseInteraction {
   }
   
   getMentionable(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONAB")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONAB")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONAB")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONABLE")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONABLE")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONABLE")))?.value || null
   }
   
   getRole(key, required = false) {
