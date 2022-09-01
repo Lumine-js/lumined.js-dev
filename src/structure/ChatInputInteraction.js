@@ -1,7 +1,6 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
 const Constants =  require("./../util/constants.js")
-const { CommandOptionType } = require("./../util/constants.js")
 
 //========== CLASS
 class ChatInputInteraction extends BaseInteraction {
@@ -53,47 +52,47 @@ class ChatInputInteraction extends BaseInteraction {
   }
   
   getSubcommandGroup(key, required = false) {
-    return this.options.find(x => x.type === CommandOptionType("SUB_COMMAND_GROUP"))?.name || null
+    return this.options.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND_GROUP"))?.name || null
   }
   
   getSubcommand() {
-    return this.options.find(x => x.type === CommandOptionType("SUB_COMMAND"))?.name || this.options[0]?.options.find(x => x.type === CommandOptionType("SUB_COMMAND"))?.name || null
+    return this.options.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND"))?.name || this.options[0]?.options.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND"))?.name || null
   }
   
   getString(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("STRING")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("STRING")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("STRING")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("STRING")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("STRING")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("STRING")))?.value || null
   }
   
   getNumber(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("NUMBER")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("NUMBER")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("NUMBER")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("NUMBER")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("NUMBER")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("NUMBER")))?.value || null
   }
   
   getBoolean(key, required = false) {
-  return this.options.find(x => (x.name === key && x.type === CommandOptionType("BOOLEAN")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("BOOLEAN")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("BOOLEAN")))?.value || null
+  return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || null
   }
   
   getInteger(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("INTEGER")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("INTEGER")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("INTEGER")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("INTEGER")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("INTEGER")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("INTEGER")))?.value || null
   }
   
   getAttachment(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("ATTACH")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("ATTACH")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("ATTACH")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ATTACH")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ATTACH")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ATTACH")))?.value || null
   }
   
   getChannel(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("CHANNEL")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("CHANNEL")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("CHANNEL")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("CHANNEL")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("CHANNEL")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("CHANNEL")))?.value || null
   }
   
   getUser(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("USER")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("USER")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("USER")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("USER")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("USER")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("USER")))?.value || null
   }
   
   getMentionable(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONABLE")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONABLE")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("MENTIONABLE")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")))?.value || null
   }
   
   getRole(key, required = false) {
-    return this.options.find(x => (x.name === key && x.type === CommandOptionType("ROLE")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("ROLE")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === CommandOptionType("ROLE")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || null
   }
 }
 
