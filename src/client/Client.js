@@ -2,7 +2,7 @@
 const Constants = require("./../util/constants.js")
 const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
 const UserClient = require("./../structure/UserClient.js")
-//const ButtonInteraction = require('./../structure/ButtonInteraction.js')
+const ButtonInteraction = require('./../structure/ButtonInteraction.js')
 
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
@@ -16,49 +16,11 @@ class Client extends EventEmitter {
 
     this.token = options?.token || null;
     this.intents = options?.intents || null;
-    if (options?.presence) {
-      this.presence = validationPresence(options?.presence)
-    } else {
-      this.presence = null;
+
+    this.loginActivity = {
+      activities: options?.activities || [],
+      status: options?.status || "online"
     }
-
-    function validationPresence(presenceObject) {
-      var presence = presenceObject
-
-      if (presence?.activity) {
-        if (typeof presence.activity === "string") {
-          switch (presence.activity.type.toLowerCase()) {
-            case "playing":
-              presence.activity.type = Constants.Status.Playing
-              break;
-            case "streaming":
-              presence.activity.type = Constants.Status.Streaming
-              break;
-            case "listening":
-              presence.activity.type = Constants.Status.Listening
-              break;
-            case "watching":
-              presence.activity.type = Constants.Status.Watching
-              break;
-            case "custom":
-              presence.activity.type = Constants.Status.Custom
-              break;
-            case "competing":
-              presence.activity.type = Constants.Status.Competing
-              break;
-          }
-          presence.activities = [presence.activity]
-        }
-      }
-      return presence
-    }
-
-
-    //Client Data
-    this.user = null;
-    this.channels = null;
-    this.users = null;
-    this.guilds = null;
   }
 
   login(token) {
@@ -100,6 +62,8 @@ class Client extends EventEmitter {
       },
       intents: this.intents
     }
+    if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
+
     if (this.presence) BotObjectLogin.presence = this.presence
     
     this.ws = new WebSocket(wssurl);
@@ -124,7 +88,8 @@ class Client extends EventEmitter {
       }
 
       // handle gateway packet types
-      if (!packet.t) return;
+      if (!packet?.t) return;
+      this.emit('rawEvent', { t: packet.t, d: packet.d })
       switch (packet.t) {
         // we should get this after we send identify
         case 'READY':
@@ -139,10 +104,10 @@ class Client extends EventEmitter {
             this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
 
-          /*if(packet.d.type === 3) {
+          if (packet.d.type === 3) {
             this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
             this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
-          }*/
+          }
           break;
       }
     };
@@ -152,17 +117,26 @@ class Client extends EventEmitter {
     this.ws.send(JSON.stringify({ op: op, d: d }));
   }
 
-  requestAPI(method = "", params = "", data) {
+  requestAPI(method = "", params = "", data, headers) {
     let object = {
       method: method,
       url: "https://discord.com/api/v10" + params,
       headers: {
-        Authorization: `Bot ${this.token}`,
+        Authorization: `Bot ${this.token}`
       }
     }
-
+    
+    if(headers) {
+      object.headers = headers
+      object.headers.Authorization = `Bot ${this.token}`
+    }
+    
     if (data) object.data = data
 
+    return axios(object).then(x =>
+    {
+      return x.data
+    }).catch(err => {
     return axios(object.url).then(x => "").catch(err => {
       if (err.response.status === 400) {
         var DiscordERROR = err.response.data
@@ -179,6 +153,12 @@ class Client extends EventEmitter {
 
   async getUser(userid = "") {
     if (userid.length === 0) throw new Error("User ID Tidak Ada")
+    return this.requestAPI("GET", Constants.ENDPOINTS.USER(userid))
+  }
+
+  async getChannel(channelid = "") {
+    if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
+    return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid))
   }
 }
 
