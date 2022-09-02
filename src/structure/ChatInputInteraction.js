@@ -93,6 +93,48 @@ class ChatInputInteraction extends BaseInteraction {
   
   getRole(key, required = false) {
     return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || null
+=======
+    return this.options.find(x => (x.name === key && x.type === OptionType.SUB_COMMAND_GROUP))?.value || null
+  }
+  
+  getSubcommand(key, required = true) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.SUB_COMMAND))?.value || null
+  }
+  
+  getString(key, required = false) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.STRING))?.value || null
+  }
+  
+  getNumber(key, required = false) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.NUMBER))?.value || null
+  }
+  
+  getBoolean(key, required = false) {
+  return this.options.find(x => (x.name === key && x.type === OptionType.BOOLEAN))?.value || null
+  }
+  
+  getInteger(key, required = false) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.INTEGER))?.value || null
+  }
+  
+  getAttachment(key, required = false) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.ATTACHMENT))?.value || null 
+  }
+  
+  getChannel(key, required = false) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.CHANNEL))?.value || null
+  }
+  
+  getUser(key, required = false) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.USER))?.value || null
+  }
+  
+  getMentionable(key, required = false) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.MENTIONABLE))?.value || null
+  }
+  
+  getRole(key, required = false) {
+    return this.options.find(x => (x.name === key && x.type === OptionType.ROLE))?.value || null
   }
 }
 
