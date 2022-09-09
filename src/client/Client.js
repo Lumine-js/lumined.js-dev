@@ -51,7 +51,7 @@ class Client extends EventEmitter {
       HELLO: 10,
       HEARTBEAT_ACK: 11,
     };
-    
+
     let BotObjectLogin = {
       // you should put your token here _without_ the "Bot" prefix
       token: this.token,
@@ -64,8 +64,6 @@ class Client extends EventEmitter {
     }
     if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
 
-    if (this.presence) BotObjectLogin.presence = this.presence
-    
     this.ws = new WebSocket(wssurl);
     let sequence = 0;
     this.ws.onopen = () => console.log('Lumine.js Succesfull To Connect Websocket');
@@ -125,19 +123,18 @@ class Client extends EventEmitter {
         Authorization: `Bot ${this.token}`
       }
     }
-    
-    if(headers) {
+
+    if (headers) {
       object.headers = headers
       object.headers.Authorization = `Bot ${this.token}`
     }
-    
+
     if (data) object.data = data
 
     return axios(object).then(x =>
     {
       return x.data
     }).catch(err => {
-    return axios(object.url).then(x => "").catch(err => {
       if (err.response.status === 400) {
         var DiscordERROR = err.response.data
         console.log('DiscordApiError : ' + `{
