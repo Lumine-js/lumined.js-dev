@@ -68,7 +68,7 @@ class ChatInputInteraction extends BaseInteraction {
   }
   
   getBoolean(key, required = false) {
-  return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || null
+    return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")))?.value || null
   }
   
   getInteger(key, required = false) {
@@ -93,7 +93,6 @@ class ChatInputInteraction extends BaseInteraction {
   
   getRole(key, required = false) {
     return this.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || this.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || this.options[0]?.options[0]?.options.find(x => (x.name === key && x.type === Constants.CommandOptionType("ROLE")))?.value || null
-=======
     return this.options.find(x => (x.name === key && x.type === OptionType.SUB_COMMAND_GROUP))?.value || null
   }
   
