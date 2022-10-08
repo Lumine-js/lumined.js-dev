@@ -3,7 +3,7 @@ const Constants = require("./../util/constants.js")
 const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
 const UserClient = require("./../structure/UserClient.js")
 const ButtonInteraction = require('./../structure/ButtonInteraction.js')
-
+const AutocompleteInteraction = require('./../structure/AutocompleteInteraction.js')
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
 const axios = require('axios')
@@ -102,9 +102,14 @@ class Client extends EventEmitter {
             this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
           }
 
-          if (packet.d.type === 3) {
+          if (packet.d.type === 3 && packet.d.data.type === 2) {
             this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
             this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
+          }
+          
+          if (packet.d.type === 4) {
+            this.emit('interactionCreate', new AutocompleteInteraction(packet.d, this))
+            this.emit('Autocomplete', new AutocompleteInteraction(packet.d, this))
           }
           break;
       }
