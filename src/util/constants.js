@@ -95,7 +95,6 @@ module.exports.CommandType = (args) => {
   }
 }
 
-//Style
 module.exports.ButtonStyle = (args) => {
   if (!args) return;
   if (!typeof args === "string") {
@@ -139,7 +138,6 @@ module.exports.TextInputStyle = (args) => {
       break;
   }
 }
-
 
 module.exports.ResolveColor = (args) => {
   if (!args) return;
