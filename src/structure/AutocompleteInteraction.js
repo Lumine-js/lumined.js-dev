@@ -34,7 +34,7 @@ class AutocompleteInteraction extends BaseInteraction {
   }
   
   getFocused(key) {
-    return this.options.find((x => x.focused === true && x.name === x.key))?.value || this.options[0]?.options.find((x => x.focused === true && x.name === x.key))?.value || this.options[0]?.options[0]?.options.find((x => x.focused === true && x.name === x.key))?.value || null
+    return this.options.find(x => (x.focused === true && x.name === x.key))?.value || this.options[0]?.options.find(x => (x.focused === true && x.name === x.key))?.value || this.options[0]?.options[0]?.options.find(x => (x.focused === true && x.name === x.key))?.value || null
   }
   
   getSubcommandGroup(key, required = false) {
