@@ -67,6 +67,7 @@ class Client extends EventEmitter {
 
     if (!this.ws) {
       this.ws = new WebSocket(wssurl)
+      this.wsUrl = wssurl
     }
 
     let sequence = 0;
@@ -82,9 +83,10 @@ class Client extends EventEmitter {
       let packet = JSON.parse(data)
 
       //Eksekusi Dasar Pemindahan
-      if (packet?.d?.resume_gateway_url) {
+      if (this.wsUrl === wssurl) {
         await this.ws.close()
         this.ws = new WebSocket(packet.d.resume_gateway_url)
+        this.wsUrl = packet.d.resume_gateway_url
         console.log('Lumine.js Change To Regional Websocket');
         return this.startWebsocket()
       } else {
