@@ -64,14 +64,14 @@ class Client extends EventEmitter {
       intents: this.intents
     }
     if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
-    
-    if(!this.ws) {
+
+    if (!this.ws) {
       this.ws = new WebSocket(wssurl)
     }
-    
+
     let sequence = 0;
     this.ws.onopen = () => console.log('Lumine.js Connected To  Websocket');
-    
+
     this.ws.onclose = this.ws.onerror = (e) => {
       this.ws = null
       console.log(' Reconnect...')
@@ -80,52 +80,54 @@ class Client extends EventEmitter {
 
     this.ws.onmessage = ({ data }) => {
       let packet = JSON.parse(data)
-      
+
       //Eksekusi Dasar Pemindahan
       if (packet?.d?.resume_gateway_url) {
+        this.destroy()
         this.ws = new WebSocket(packet.d.resume_gateway_url)
         console.log('Lumine.js Change To Regional Websocket');
-        this.startWebsocket()
-      }
+        return this.startWebsocket()
+      } else {
 
-      switch (packet.op) {
-        case OPCodes.HELLO:
-          // set heartbeat interval
-          if (packet.s) sequence = packet.s;
-          setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval - 3000);
-          // https://discordapi.com/topics/gateway#gateway-identify
-          this.sendWebsocket(OPCodes.IDENTIFY, BotObjectLogin);
-      }
+        switch (packet.op) {
+          case OPCodes.HELLO:
+            // set heartbeat interval
+            if (packet.s) sequence = packet.s;
+            setInterval(() => this.sendWebsocket(OPCodes.HEARTBEAT, sequence), packet.d.heartbeat_interval - 3000);
+            // https://discordapi.com/topics/gateway#gateway-identify
+            this.sendWebsocket(OPCodes.IDENTIFY, BotObjectLogin);
+        }
 
-      // handle gateway packet types
-      if (!packet?.t) return;
-      this.emit('rawEvent', { t: packet.t, d: packet.d })
-      switch (packet.t) {
-        // we should get this after we send identify
-        case 'READY':
-          this.user = new UserClient(packet.d)
-          this.emit("ready", new UserClient(packet.d, this))
-          const packg = require("./../../package.json")
-          console.log(`====== Lumine.js (Project)\n${packg.name} - ${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
-          break;
-        case 'INTERACTION_CREATE':
-          if (packet.d.type === 2 && packet.d.data.type === 1) {
-            this.emit('interactionCreate', new CommandInputInteraction(packet.d, this))
-            this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
-          }
+        // handle gateway packet types
+        if (!packet?.t) return;
+        this.emit('rawEvent', { t: packet.t, d: packet.d })
+        switch (packet.t) {
+          // we should get this after we send identify
+          case 'READY':
+            this.user = new UserClient(packet.d)
+            this.emit("ready", new UserClient(packet.d, this))
+            const packg = require("./../../package.json")
+            console.log(`====== Lumine.js (Project)\n${packg.name} - ${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
+            break;
+          case 'INTERACTION_CREATE':
+            if (packet.d.type === 2 && packet.d.data.type === 1) {
+              this.emit('interactionCreate', new CommandInputInteraction(packet.d, this))
+              this.emit('ChatInputInteraction', new CommandInputInteraction(packet.d, this))
+            }
 
-          if (packet.d.type === 3 && packet.d.data.type === 2) {
-            this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
-            this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
-          }
+            if (packet.d.type === 3 && packet.d.data.type === 2) {
+              this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
+              this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
+            }
 
-          if (packet.d.type === 4) {
-            this.emit('interactionCreate', new AutocompleteInteraction(packet.d, this))
-            this.emit('Autocomplete', new AutocompleteInteraction(packet.d, this))
-          }
-          break;
-      }
-    };
+            if (packet.d.type === 4) {
+              this.emit('interactionCreate', new AutocompleteInteraction(packet.d, this))
+              this.emit('Autocomplete', new AutocompleteInteraction(packet.d, this))
+            }
+            break;
+        }
+      };
+    }
   }
 
   sendWebsocket(op, d) {
