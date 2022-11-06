@@ -64,17 +64,28 @@ class Client extends EventEmitter {
     }
     if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
 
-    this.ws = new WebSocket(wssurl);
+    this.ws = new WebSocket()
+
+    this.rescon = new WebSocket(wssurl)
+    this.rescon.onmessage = ({ data }) => {
+      let rawPacket = JSON.parse(data)
+      if ((packet.op === 10) && (packet?.d?.resume_gateway_url)) {
+        this.rescon.destroy()
+        this.ws = new WebSocket(packet.d.resume_gateway_url);
+      }
+    }
+
     let sequence = 0;
-    this.ws.onopen = () => console.log('Lumine.js Succesfull To Connect Websocket');
+    this.ws.onopen = () => console.log('Lumine.js Connected To Regional Websocket');
+    
     this.ws.onclose = this.ws.onerror = (e) => {
       this.ws = null
       console.log(' Reconnect...')
       this.startWebsocket()
     }
+
     this.ws.onmessage = ({ data }) => {
       let packet = JSON.parse(data)
-
 
       switch (packet.op) {
         case OPCodes.HELLO:
@@ -106,7 +117,7 @@ class Client extends EventEmitter {
             this.emit('interactionCreate', new ButtonInteraction(packet.d, this))
             this.emit('ButtonInteraction', new ButtonInteraction(packet.d, this))
           }
-          
+
           if (packet.d.type === 4) {
             this.emit('interactionCreate', new AutocompleteInteraction(packet.d, this))
             this.emit('Autocomplete', new AutocompleteInteraction(packet.d, this))
