@@ -83,9 +83,9 @@ class Client extends EventEmitter {
       
       //Eksekusi Dasar Pemindahan
       if (packet?.d?.resume_gateway_url) {
-        this.ws.destroy()
         this.ws = new WebSocket(packet.d.resume_gateway_url)
-        return console.log('Lumine.js Change To Regional Websocket');
+        console.log('Lumine.js Change To Regional Websocket');
+        this.startWebsocket()
       }
 
       switch (packet.op) {
