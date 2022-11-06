@@ -65,7 +65,7 @@ class Client extends EventEmitter {
     }
     if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
 
-    if (!this?.wsUrl) {
+    if (!this.wsUrl) {
       this.ws = new WebSocket(wssurl)
       this.wsUrl = wssurl
     }
@@ -73,10 +73,12 @@ class Client extends EventEmitter {
     let sequence = 0;
     this.ws.onopen = () => console.log('Lumine.js Connected To  Websocket');
 
-    this.ws.onclose = this.ws.onerror = (e) => {
-      this.ws = null
-      console.log(' Reconnect...')
-      this.startWebsocket()
+    if (!this?.wsUrl === wssurl) {
+      this.ws.onclose = this.ws.onerror = (e) => {
+        this.ws = null
+        console.log(' Reconnect...')
+        this.startWebsocket()
+      }
     }
 
     this.ws.onmessage = async ({ data }) => {
