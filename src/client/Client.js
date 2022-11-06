@@ -83,14 +83,13 @@ class Client extends EventEmitter {
       let packet = JSON.parse(data)
 
       //Eksekusi Dasar Pemindahan
-      if (this.wsUrl === wssurl) {
+      if ((packet?.d?.resume_gateway_url) && (this.wsUrl === wssurl)) {
         await this.ws.close()
         this.ws = new WebSocket(packet.d.resume_gateway_url)
         this.wsUrl = packet.d.resume_gateway_url
         console.log('Lumine.js Change To Regional Websocket');
         return this.startWebsocket()
       } else {
-
         switch (packet.op) {
           case OPCodes.HELLO:
             // set heartbeat interval
