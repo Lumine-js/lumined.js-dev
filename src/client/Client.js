@@ -33,7 +33,7 @@ class Client extends EventEmitter {
   }
 
   destroy() {
-    return this.ws.destroy()
+    return this.ws.close()
   }
 
   postCommand(commandsarray, guildid) {
@@ -83,7 +83,7 @@ class Client extends EventEmitter {
 
       //Eksekusi Dasar Pemindahan
       if (packet?.d?.resume_gateway_url) {
-        await this.destroy()
+        await this.ws.close()
         this.ws = new WebSocket(packet.d.resume_gateway_url)
         console.log('Lumine.js Change To Regional Websocket');
         return this.startWebsocket()
