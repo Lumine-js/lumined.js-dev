@@ -65,7 +65,7 @@ class Client extends EventEmitter {
     }
     if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
 
-    if (!this.ws) {
+    if (!this?.wsUrl) {
       this.ws = new WebSocket(wssurl)
       this.wsUrl = wssurl
     }
