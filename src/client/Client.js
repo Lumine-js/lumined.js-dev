@@ -21,6 +21,7 @@ class Client extends EventEmitter {
       activities: options?.activities || [],
       status: options?.status || "online"
     }
+    this.ws = null
   }
 
   login(token) {
@@ -63,20 +64,13 @@ class Client extends EventEmitter {
       intents: this.intents
     }
     if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
-
-    this.ws = new WebSocket()
-
-    this.rescon = new WebSocket(wssurl)
-    this.rescon.onmessage = ({ data }) => {
-      let rawPacket = JSON.parse(data)
-      if ((packet.op === 10) && (packet?.d?.resume_gateway_url)) {
-        this.rescon.destroy()
-        this.ws = new WebSocket(packet.d.resume_gateway_url);
-      }
+    
+    if(!this.ws) {
+      this.ws = new WebSocket(wssurl)
     }
-
+    
     let sequence = 0;
-    this.ws.onopen = () => console.log('Lumine.js Connected To Regional Websocket');
+    this.ws.onopen = () => console.log('Lumine.js Connected To  Websocket');
     
     this.ws.onclose = this.ws.onerror = (e) => {
       this.ws = null
@@ -86,6 +80,13 @@ class Client extends EventEmitter {
 
     this.ws.onmessage = ({ data }) => {
       let packet = JSON.parse(data)
+      
+      //Eksekusi Dasar Pemindahan
+      if ((packet.op === 10) && (packet?.d?.resume_gateway_url)) {
+        this.ws.destroy()
+        this.ws = new WebSocket(packet.d.resume_gateway_url)
+        console.log('Lumine.js Change To Regional Websocket');;
+      }
 
       switch (packet.op) {
         case OPCodes.HELLO:
