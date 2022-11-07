@@ -33,20 +33,18 @@ class Client extends EventEmitter {
   }
 
   destroy() {
-    this.wsUrl = null
-    this.ws = null
     return this.ws.close()
   }
 
-  postCommand(commandsarray, guildid) {
+  async postCommand(commandsarray, guildid) {
     if (!guildid) {
-      this.requestAPI("PUT", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
+      await this.requestAPI("PUT", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
     } else {
-      this.requestAPI("PUT", Constants.ENDPOINTS.GUILD_COMMANDS(this.user.id, guildid), commandsarray)
+      await this.requestAPI("PUT", Constants.ENDPOINTS.GUILD_COMMANDS(this.user.id, guildid), commandsarray)
     }
   }
 
-  startWebsocket() {
+  async startWebsocket() {
     let wssurl = `wss://gateway.discord.gg/?v=10&encoding=json`
     const OPCodes = {
       HEARTBEAT: 1,
@@ -136,11 +134,11 @@ class Client extends EventEmitter {
     }
   }
 
-  sendWebsocket(op, d) {
+  async sendWebsocket(op, d) {
     this.ws.send(JSON.stringify({ op: op, d: d }));
   }
 
-  requestAPI(method = "", params = "", data, headers) {
+  async requestAPI(method = "", params = "", data, headers) {
     let object = {
       method: method,
       url: "https://discord.com/api/v10" + params,
