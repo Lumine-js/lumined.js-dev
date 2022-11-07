@@ -33,6 +33,8 @@ class Client extends EventEmitter {
   }
 
   destroy() {
+    this.wsUrl = null
+    this.ws = null
     return this.ws.close()
   }
 
@@ -71,7 +73,6 @@ class Client extends EventEmitter {
     }
 
     let sequence = 0;
-    this.ws.onopen = () => console.log('Lumine.js Connected To  Websocket');
 
     if (!this?.wsUrl === wssurl) {
       this.ws.onclose = this.ws.onerror = (e) => {
@@ -79,6 +80,8 @@ class Client extends EventEmitter {
         console.log(' Reconnect...')
         this.startWebsocket()
       }
+    } else {
+      this.ws.onopen = () => console.log('Lumine.js Connected To Websocket');
     }
 
     this.ws.onmessage = async ({ data }) => {
