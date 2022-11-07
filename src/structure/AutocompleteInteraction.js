@@ -24,8 +24,8 @@ class AutocompleteInteraction extends BaseInteraction {
     this.applicationId = daneta?.application_id || null
   }
   
-  respond(options = []) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async respond(options = []) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type:8,
       data:{
         choices: options || []
