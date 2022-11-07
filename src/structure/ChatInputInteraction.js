@@ -24,29 +24,29 @@ class ChatInputInteraction extends BaseInteraction {
     this.applicationId = daneta?.application_id || null
   }
   
-  reply(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async reply(msgdata) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type:4,
       data:msgdata
     })
   }
   
-  deferReply() {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async deferReply() {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type:5
     })
   }
   
-  followUp(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.FOLLOWUP_INTERACTION(this.applicationId, this.token), msgdata)
+  async followUp(msgdata) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.FOLLOWUP_INTERACTION(this.applicationId, this.token), msgdata)
   }
   
-  editReply(msgdata) {
-    this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.applicationId, this.token), msgdata)
+  async editReply(msgdata) {
+    await this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.applicationId, this.token), msgdata)
   }
   
-  showModal(modaldata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async showModal(modaldata) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type:9,
       data:modaldata
     })
