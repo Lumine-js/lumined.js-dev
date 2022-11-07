@@ -21,28 +21,21 @@ class ButtonInteraction extends BaseInteraction {
     this.guildLocale = daneta?.guild_locale
   }
 
-  reply(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async reply(msgdata) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type: 4,
       data: msgdata
     })
   }
 
-  deferUpdate() {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async deferUpdate() {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type: 6
     })
   }
 
-  update(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type: 7,
-      data: msgdata
-    })
-  }
-
-  showModal(modaldata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async showModal(modaldata) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type:9,
       data:modaldata
     })
