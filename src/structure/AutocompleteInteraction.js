@@ -1,14 +1,14 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
-const Constants =  require("./../util/constants.js")
+const Constants = require("./../util/constants.js")
 
 //========== CLASS
 class AutocompleteInteraction extends BaseInteraction {
   constructor(options, client) {
     super()
-    
+
     this.client = client || null;
-    
+
     var daneta = JSON.parse(JSON.stringify(options))
     //this.rawdata = options
     this.name = daneta?.data?.name || null
@@ -23,62 +23,194 @@ class AutocompleteInteraction extends BaseInteraction {
     this.id = daneta?.id || null
     this.applicationId = daneta?.application_id || null
   }
-  
+
   async respond(options = []) {
     await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type:8,
-      data:{
+      type: 8,
+      data: {
         choices: options || []
       }
     })
   }
-  
+
   getFocused(key) {
-    return this?.options?.find(x => (x?.focused === true && x?.name === key))?.value || this?.options[0]?.options?.find(x => (x?.focused === true && x?.name === key))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.focused === true && x?.name === key))?.value || null
+    try {
+      return this?.options?.find(x => (x?.focused === true && x?.name === key))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.focused === true && x?.name === key))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.focused === true && x?.name === key))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getSubcommandGroup(key, required = false) {
-    return this?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND_GROUP"))?.name || null
+    try {
+      return this?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND_GROUP"))?.name
+    } catch {
+      return null
+    }
   }
-  
+
   getSubcommand() {
-    return this?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND"))?.name || this?.options[0]?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND"))?.name || null
+    try {
+      return this?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND"))?.name
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND"))?.name
+      } catch {
+        return null
+      }
+    }
   }
-  
+
   getString(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getNumber(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getBoolean(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getInteger(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getAttachment(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getChannel(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getUser(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getMentionable(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
-  
+
   getRole(key, required = false) {
-    return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value || this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value || this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value || null
+    try {
+      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value
+    } catch {
+      try {
+        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value
+      } catch {
+        try {
+          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value
+        } catch {
+          return null
+        }
+      }
+    }
   }
 }
 
