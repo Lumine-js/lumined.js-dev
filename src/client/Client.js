@@ -29,6 +29,7 @@ class Client extends EventEmitter {
   login(token) {
     if (this._token === null) {
       if (!token) throw new TypeError("Token Tidak Ada")
+      this._token = token
     }
     if (this.ws) {
       throw new TypeError('Client Already Run')
