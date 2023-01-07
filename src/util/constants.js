@@ -87,7 +87,7 @@ module.exports.CommandPermissionType = (arg) => {
   }
 }
 
-nodule.exports.CommandPermissionType = (arg) => {
+module.exports.CommandPermissionType = (arg) => {
   const values = {
     SHORT: 1,
     PARAGRAPH: 2
