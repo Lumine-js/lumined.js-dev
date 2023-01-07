@@ -1,4 +1,4 @@
-nodule.exports.CommandOptionType = (arg) => {
+module.exports.CommandOptionType = (arg) => {
   const values = {
     SUB_COMMAND: 1,
     SUB_COMMAND_GROUP: 2,
