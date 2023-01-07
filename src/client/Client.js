@@ -159,8 +159,7 @@ class Client extends EventEmitter {
 
     if (headers) {
       object.headers = headers
-      object.headers.Authorization = `Bot ${this
-   ._token 
+      object.headers.Authorization = `Bot ${this._token 
       }`
     }
 
