@@ -8,27 +8,32 @@ const AutocompleteInteraction = require('./../structure/AutocompleteInteraction.
 const { EventEmitter } = require("node:events")
 const axios = require('axios')
 const WebSocket = require("ws");
+const clc = require("cli-color")
 
 //========= CLASS
 class Client extends EventEmitter {
   constructor(options = {}) {
     super()
 
-    this.token = options?.token || null;
-    this.intents = options?.intents || null;
+    this._token = options?.token || null;
+    this._intents = options?.intents || null;
 
-    this.loginActivity = {
+    this._loginActivity = {
       activities: options?.activities || [],
       status: options?.status || "online"
     }
+
     this.ws = null
   }
 
   login(token) {
-    if (this.token === null) {
-      if (!token) throw new Error("Token Tidak Ada")
+    if (this._token === null) {
+      if (!token) throw new TypeError("Token Tidak Ada")
     }
-    if (this.intents === null) throw new Error("Intents Harus Terisi")
+    if (this.ws) {
+      throw new TypeError('Client Already Run')
+    }
+    if (this._intents === null) throw new TypeError("Intents Harus Terisi")
     this.startWebsocket()
   }
 
@@ -36,7 +41,7 @@ class Client extends EventEmitter {
     return this.ws.close()
   }
 
-  async postCommand(commandsarray, guildid) {
+  async updateCommands(commandsarray, guildid) {
     if (!guildid) {
       await this.requestAPI("PUT", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
     } else {
@@ -55,15 +60,16 @@ class Client extends EventEmitter {
 
     let BotObjectLogin = {
       // you should put your token here _without_ the "Bot" prefix
-      token: this.token,
+      token: this
+        ._token,
       properties: {
         $os: "Lumine.js",
         $browser: 'Lumine.js',
         $device: "linux",
       },
-      intents: this.intents
+      intents: this._intents
     }
-    if (this.loginActivity) BotObjectLogin.presence = this.loginActivity
+    if (this._loginActivity) BotObjectLogin.presence = this._loginActivity
 
     if (!this.wsUrl) {
       this.ws = new WebSocket(wssurl)
@@ -75,11 +81,13 @@ class Client extends EventEmitter {
     if (!this?.wsUrl === wssurl) {
       this.ws.onclose = this.ws.onerror = (e) => {
         this.ws = null
-        console.log(' Reconnect...')
+        this.emit("moduleLogging", 'Try To Reconnect')
         this.startWebsocket()
       }
     } else {
-      this.ws.onopen = () => console.log('Lumine.js Connected To Websocket');
+      this.ws.onopen = () => {
+        this.emit("moduleLogging", 'Lumine.js Connected To Websocket')
+      }
     }
 
     this.ws.onmessage = async ({ data }) => {
@@ -90,7 +98,7 @@ class Client extends EventEmitter {
         await this.ws.close()
         this.ws = new WebSocket(packet.d.resume_gateway_url)
         this.wsUrl = packet.d.resume_gateway_url
-        console.log('Lumine.js Change To Regional Websocket');
+        this.emit("moduleLogging", 'Lumine.js Change To Regional Websocket')
         return this.startWebsocket()
       } else {
         switch (packet.op) {
@@ -111,7 +119,7 @@ class Client extends EventEmitter {
             this.user = new UserClient(packet.d)
             this.emit("ready", new UserClient(packet.d, this))
             const packg = require("./../../package.json")
-            console.log(`====== Lumine.js (Project)\n${packg.name} - ${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
+            console.log(`Bot ${clc.bold.blue(new UserClient(packet.d, this).username)} telah aktif, Selamat datang dan terimakasih menggunakan framework ${clc.yellow.bold(packg.name)} versi ${packg.version}.\nDokumentasi bisa diperiksa pada ${clc.blue(`https://github.com/Lumine-js/${packg.name}`)}`)
             break;
           case 'INTERACTION_CREATE':
             if (packet.d.type === 2 && packet.d.data.type === 1) {
@@ -143,13 +151,17 @@ class Client extends EventEmitter {
       method: method,
       url: "https://discord.com/api/v10" + params,
       headers: {
-        Authorization: `Bot ${this.token}`
+        Authorization: `Bot ${this
+     ._token 
+        }`
       }
     }
 
     if (headers) {
       object.headers = headers
-      object.headers.Authorization = `Bot ${this.token}`
+      object.headers.Authorization = `Bot ${this
+   ._token 
+      }`
     }
 
     if (data) object.data = data
@@ -160,24 +172,24 @@ class Client extends EventEmitter {
     }).catch(err => {
       if (err.response.status === 400) {
         var DiscordERROR = err.response.data
-        console.log('DiscordApiError : ' + `{
-          "code": ${DiscordERROR.code},
-          "message": ${DiscordERROR.message},
-          "error": ${JSON.stringify(DiscordERROR.errors)},
-          "url": ${object.url}
-        }`)
+        throw new Error('DiscordApiError : ' + `{
+                    "code": ${DiscordERROR.code},
+                    "message": ${DiscordERROR.message},
+                    "error": ${JSON.stringify(DiscordERROR.errors)},
+                    "url": ${object.url}
+                  }`)
       }
 
     })
   }
 
   async getUser(userid = "") {
-    if (userid.length === 0) throw new Error("User ID Tidak Ada")
+    if (userid.length === 0) throw new TypeError("User ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.USER(userid))
   }
 
   async getChannel(channelid = "") {
-    if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
+    if (channelid.length === 0) throw new TypeError("Channel ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid))
   }
 }
