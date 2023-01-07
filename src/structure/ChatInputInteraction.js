@@ -1,14 +1,14 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
-const Constants = require("./../util/constants.js")
+const Constants =  require("./../util/constants.js")
 
 //========== CLASS
 class ChatInputInteraction extends BaseInteraction {
   constructor(options, client) {
     super()
-
+    
     this.client = client || null;
-
+    
     var daneta = JSON.parse(JSON.stringify(options))
     //this.rawdata = options
     this.name = daneta?.data?.name || null
@@ -21,199 +21,78 @@ class ChatInputInteraction extends BaseInteraction {
     this.options = daneta?.data?.options || []
     this.token = daneta?.token || null
     this.id = daneta?.id || null
-    this.applicationId = daneta?.application_id || null
   }
-
-  async reply(msgdata) {
-    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type: 4,
-      data: msgdata
+  
+  reply(msgdata) {
+    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+      type:4,
+      data:msgdata
     })
   }
-
-  async deferReply() {
-    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type: 5
+  
+  deferReply() {
+    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+      type:5
     })
   }
-
-  async followUp(msgdata) {
-    await this.client.requestAPI("POST", Constants.ENDPOINTS.FOLLOWUP_INTERACTION(this.applicationId, this.token), msgdata)
+  
+  followUp(msgdata) {
+    this.client.requestAPI("POST", Constants.ENDPOINTS.FOLLOWUP_INTERACTION(this.client.user.id, this.token), msgdata)
   }
-
-  async editReply(msgdata) {
-    await this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.applicationId, this.token), msgdata)
+  
+  editReply(msgdata) {
+    this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.client.user.id, this.token), msgdata)
   }
-
-  async showModal(modaldata) {
-    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type: 9,
-      data: modaldata
+  
+  showModal(modaldata) {
+    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+      type:9,
+      data:modaldata
     })
   }
-
+  
   getSubcommandGroup(key, required = false) {
-    try {
-      return this?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND_GROUP"))?.name
-    } catch {
-      return null
-    }
+    return this.options.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND_GROUP")).name ? this.options.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND_GROUP")).name : null;
   }
-
+  
   getSubcommand() {
-    try {
-      return this?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND"))?.name
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => x?.type === Constants.CommandOptionType("SUB_COMMAND"))?.name
-      } catch {
-        return null
-      }
-    }
+    return this.options.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND")).name ? this.options.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND")).name : this.options[0]?.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND")).name ? this.options[0].options.find(x => x.type === Constants.CommandOptionType("SUB_COMMAND")).name : null;
   }
-
+  
   getString(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("STRING")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("STRING")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("STRING")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("STRING")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("STRING")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("STRING")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("STRING")).value : null;
   }
-
+  
   getNumber(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("NUMBER")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("NUMBER")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("NUMBER")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("NUMBER")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("NUMBER")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("NUMBER")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("NUMBER")).value : null;
   }
-
+  
   getBoolean(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("BOOLEAN")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("BOOLEAN")).value : null;
   }
-
+  
   getInteger(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("INTEGER")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("INTEGER")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("INTEGER")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("INTEGER")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("INTEGER")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("INTEGER")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("INTEGER")).value : null;
   }
-
+  
   getAttachment(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ATTACH")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ATTACHMENT")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ATTACHMENT")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ATTACHMENT")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ATTACHMENT")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ATTACHMENT")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ATTACHMENT")).value : null;
   }
-
+  
   getChannel(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("CHANNEL")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("CHANNEL")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("CHANNEL")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("CHANNEL")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("CHANNEL")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("CHANNEL")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("CHANNEL")).value : null;
   }
-
+  
   getUser(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("USER")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("USER")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("USER")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("USER")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("USER")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("USER")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("USER")).value : null;
   }
-
+  
   getMentionable(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("MENTIONABLE")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("MENTIONABLE")).value : null;
   }
-
+  
   getRole(key, required = false) {
-    try {
-      return this?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value
-    } catch {
-      try {
-        return this?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value
-      } catch {
-        try {
-          return this?.options[0]?.options[0]?.options?.find(x => (x?.name === key && x?.type === Constants.CommandOptionType("ROLE")))?.value
-        } catch {
-          return null
-        }
-      }
-    }
+    return this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ROLE")) ? this.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ROLE")).value : this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ROLE")) ? this.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ROLE")).value : this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ROLE")) ? this.options[0]?.options[0]?.options.find(x => x.name === key && x.type === Constants.CommandOptionType("ROLE")).value : null;
   }
 }
 
