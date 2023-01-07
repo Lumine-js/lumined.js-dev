@@ -1,145 +1,110 @@
-module.exports.CommandOptionType = (args) => {
-  if (!args) return;
-  if (!typeof args === "string") {
-    return console.log("(Clorynin Module Eror) args Must Be A String")
+nodule.exports.CommandOptionType = (arg) => {
+  const values = {
+    SUB_COMMAND: 1,
+    SUB_COMMAND_GROUP: 2,
+    STRING: 3,
+    INTEGER: 4,
+    BOOLEAN: 5,
+    USER: 6,
+    CHANNEL: 7,
+    ROLE: 8,
+    MENTIONABLE: 9,
+    NUMBER: 10,
+    ATTACHMENT: 11
   }
-  args = args.toUpperCase()
-  switch (args) {
-    case "SUB_COMMAND":
-      return 1
-      break;
-    case "SUB_COMMAND_GROUP":
-      return 2
-      break;
-    case "STRING":
-      return 3
-      break;
-    case "INTEGER":
-      return 4
-      break;
-    case "BOOLEAN":
-      return 5
-      break;
-    case "USER":
-      return 6
-      break;
-    case "CHANNEL":
-      return 7
-      break;
-    case "ROLE":
-      return 8
-      break;
-    case "MENTIONABLE":
-      return 9
-      break;
-    case "NUMBER":
-      return 10
-      break;
-    case "ATTACHMENT":
-      return 11
-      break;
+
+  arg = arg.toUpperCase()
+  const value = values[arg]
+  const string = Object.keys(values).find(key => values[key] === arg)
+
+  if (value) {
+    return value
+  } else if (string) {
+    return string
+  } else {
+    return null
   }
 }
 
-module.exports.CommandType = (args) => {
-  if (!args) return;
-  if (!typeof args === "string") {
-    return console.log("(Clorynin Module Eror) args Must Be A String")
+module.exports.CommandType = (arg) => {
+  const values = {
+    CHAT_INPUT: 1,
+    USER: 2,
+    MESSAGE: 3
   }
-  args = args.toUpperCase()
-  switch (args) {
-    case "CHAT_INPUT":
-      return 1
-      break;
-    case "USER":
-      return 2
-      break;
-    case "MESSAGE":
-      return 3
-      break;
+
+  arg = arg.toUpperCase()
+  const value = values[arg]
+  const string = Object.keys(values).find(key => values[key] === arg)
+
+  if (value) {
+    return value
+  } else if (string) {
+    return string
+  } else {
+    return null
   }
 }
 
-module.exports.CommandPermissionType = (args) => {
-  if (!args) return;
-  if (!typeof args === "string") {
-    return console.log("(Clorynin Module Eror) args Must Be A String")
+module.exports.ButtonStyle = (arg) => {
+  const values = {
+    PRIMARY: 1,
+    SECONDARY: 2,
+    SUCCESS: 3,
+    DANGER: 4,
+    LINK: 5
   }
-  args = args.toUpperCase()
-  switch (args) {
-    case "ROLE":
-      return 1
-      break;
-    case "USER":
-      return 2
-      break;
+
+  arg = arg.toUpperCase()
+  const value = values[arg]
+  const string = Object.keys(values).find(key => values[key] === arg)
+
+  if (value) {
+    return value
+  } else if (string) {
+    return string
+  } else {
+    return null
   }
 }
 
-module.exports.CommandType = (args) => {
-  if (!args) return;
-  if (!typeof args === "string") {
-    return console.log("(Clorynin Module Eror) args Must Be A String")
+module.exports.CommandPermissionType = (arg) => {
+  const values = {
+    ROLE: 1,
+    USER: 2
   }
-  args = args.toUpperCase()
-  switch (args) {
-    case "CHAT_INPUT":
-      return 1
-      break;
-    case "USER":
-      return 2
-      break;
-    case "MESSAGE":
-      return 3
-      break;
+
+  arg = arg.toUpperCase()
+  const value = values[arg]
+  const string = Object.keys(values).find(key => values[key] === arg)
+
+  if (value) {
+    return value
+  } else if (string) {
+    return string
+  } else {
+    return null
   }
 }
 
-//Style
-module.exports.ButtonStyle = (args) => {
-  if (!args) return;
-  if (!typeof args === "string") {
-    return console.log("(Clorynin Module Eror) args Must Be A String")
+nodule.exports.CommandPermissionType = (arg) => {
+  const values = {
+    SHORT: 1,
+    PARAGRAPH: 2
   }
-  args = args.toUpperCase()
-  switch (args) {
-    case "PRIMARY":
-      return 1
-      break;
-    case "SECONDARY":
-      return 2
-      break;
-    case "SUCCESS":
-      return 3
-      break;
-    case "DANGER":
-      return 4
-      break;
-    case "LINK":
-      return 5
-      break;
+
+  arg = arg.toUpperCase()
+  const value = values[arg]
+  const string = Object.keys(values).find(key => values[key] === arg)
+
+  if (value) {
+    return value
+  } else if (string) {
+    return string
+  } else {
+    return null
   }
 }
-
-module.exports.TextInputStyle = (args) => {
-  if (!args) return;
-  if (!typeof args === "string") {
-    return console.log("(Clorynin Module Eror) args Must Be A String")
-  }
-  if (!typeof args === "string") {
-    return console.log("(Clorynin Module Eror) args Must Be A String")
-  }
-  args = args.toUpperCase()
-  switch (args) {
-    case "SHORT":
-      return 1
-      break;
-    case "PARAGRAPH":
-      return 2
-      break;
-  }
-}
-
 
 module.exports.ResolveColor = (args) => {
   if (!args) return;
@@ -180,26 +145,25 @@ module.exports.ResolveColor = (args) => {
 }
 
 module.exports.ActivityType = (type) => {
-  type = type.toLowerCase()
-  switch (type) {
-    case "playing":
-      return 0
-      break;
-    case "streaming":
-      return 1
-      break;
-    case "listening":
-      return 2
-      break;
-    case "watching":
-      return 3
-      break;
-    case "custom":
-      return 4
-      break;
-    case "competing":
-      return 5
-      break;
+  const values = {
+    PLAYING: 0,
+    STREAMING: 1,
+    LISTENING: 2,
+    WATCHING: 3,
+    CUSTOM: 4,
+    COMPETING: 5
+  }
+
+  arg = arg.toUpperCase()
+  const value = values[arg]
+  const string = Object.keys(values).find(key => values[key] === arg)
+
+  if (value) {
+    return value
+  } else if (string) {
+    return string
+  } else {
+    return null
   }
 }
 
