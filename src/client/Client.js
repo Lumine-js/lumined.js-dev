@@ -28,13 +28,13 @@ class Client extends EventEmitter {
 
   login(token) {
     if (this._token === null) {
-      if (!token) throw new TypeError("Token Tidak Ada")
+      if (!token) throw new Error("Token Tidak Ada")
       this._token = token
     }
     if (this.ws) {
-      throw new TypeError('Client Already Run')
+      throw new Error('Client Already Run')
     }
-    if (this._intents === null) throw new TypeError("Intents Harus Terisi")
+    if (this._intents === null) throw new Error("Intents Harus Terisi")
     this.startWebsocket()
   }
 
@@ -120,7 +120,7 @@ class Client extends EventEmitter {
             this.user = new UserClient(packet.d)
             this.emit("ready", new UserClient(packet.d, this))
             const packg = require("./../../package.json")
-            console.log(`Bot ${clc.bold.blue(new UserClient(packet.d, this).username)} telah aktif, Selamat datang dan terimakasih menggunakan framework ${clc.yellow.bold(packg.name)} versi ${packg.version}.\nDokumentasi bisa diperiksa pada ${clc.blue(`https://github.com/Lumine-js/${packg.name}`)}`)
+            console.log(`Bot ${clc.bold.blue(new UserClient(packet.d, this).username)} telah aktif, \nTerimakasih menggunakan ${clc.yellow.bold(packg.name)} versi ${packg.version}.\nDokumentasi bisa diperiksa pada \n${clc.blue(`https://github.com/Lumine-js/${packg.name}`)}`)
             break;
           case 'INTERACTION_CREATE':
             if (packet.d.type === 2 && packet.d.data.type === 1) {
@@ -184,12 +184,12 @@ class Client extends EventEmitter {
   }
 
   async getUser(userid = "") {
-    if (userid.length === 0) throw new TypeError("User ID Tidak Ada")
+    if (userid.length === 0) throw new Error("User ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.USER(userid))
   }
 
   async getChannel(channelid = "") {
-    if (channelid.length === 0) throw new TypeError("Channel ID Tidak Ada")
+    if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid))
   }
 }
