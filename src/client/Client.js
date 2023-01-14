@@ -1,5 +1,5 @@
 //========== STRUCTURE DATA
-const Constants = require("./../util/constants.js")
+const Constants = require("./../util/Constants.js")
 const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
 const UserClient = require("./../structure/UserClient.js")
 const ButtonInteraction = require('./../structure/ButtonInteraction.js')
@@ -15,8 +15,8 @@ class Client extends EventEmitter {
   constructor(options = {}) {
     super()
 
-    this._token = options?.token || null;
-    this._intents = options?.intents || null;
+    this.#token = options?.token || null;
+    this.#intents = options?.intents || null
 
     this._loginActivity = {
       activities: options?.activities || [],
@@ -27,9 +27,9 @@ class Client extends EventEmitter {
   }
 
   login(token) {
-    if (this._token === null) {
+    if (this.#token === null) {
       if (!token) throw new Error("Token Tidak Ada")
-      this._token = token
+      this.#token = token
     }
     if (this.ws) {
       throw new Error('Client Already Run')
@@ -160,7 +160,7 @@ class Client extends EventEmitter {
 
     if (headers) {
       object.headers = headers
-      object.headers.Authorization = `Bot ${this._token 
+      object.headers.Authorization = `Bot ${this.#token 
       }`
     }
 
