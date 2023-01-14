@@ -11,25 +11,25 @@ class SelectMenu {
   setPlaceholder(placeholder) {
     try {
       if (!placeholder) {
-        console.log("(Clorynin Alert) Parameter Label Must Fill!")
+        throw new Error("Parameter Label Must Fill!")
         return this
       }
       if (!typeof placeholder === "string") {
-        console.log("(Clorynin Alert) Parameter label Must Be A String")
+        throw new Error("Parameter label Must Be A String")
         return this
       }
       if (placeholder.length === 0) {
-        console.log("(Clorynin Alert) Parameter label Cannot Be Empty")
+        throw new Error("Parameter label Cannot Be Empty")
         return this
       }
       if (placeholder.length > 150) {
-        console.log("(Clorynin Alert) Parameter label Can't Be More Than 150 Letters")
+        throw new Error("Parameter label Can't Be More Than 150 Letters")
         return this
       }
       this.placeholder = placeholder
       return this
     } catch (err) {
-      console.log("(Clorynin Error) " + err)
+      throw new Error(err)
       return this
     }
   }
@@ -37,36 +37,36 @@ class SelectMenu {
   setCustomId(id) {
     try {
       if (!id) {
-        console.log("(Clorynin Alert) Parameter id Must Fill!")
+        throw new Error("Parameter id Must Fill!")
         return this
       }
       if (!typeof id === "string") {
-        console.log("(Clorynin Alert) Parameter id Must Be A String")
+        throw new Error("Parameter id Must Be A String")
         return this
       }
       if (id.length === 0) {
-        console.log("(Clorynin Alert) Parameter id Cannot Be Empty")
+        throw new Error("Parameter id Cannot Be Empty")
         return this
       }
       if (id.length > 100) {
-        console.log("(Clorynin Alert) Parameter id Can't Be More Than 100 Letters")
+        throw new Error("Parameter id Can't Be More Than 100 Letters")
         return this
       }
       this.custom_id = id
       return this
     } catch (err) {
-      console.log("(Clorynin Error) " + err)
+      throw new Error(err)
       return this
     }
   }
 
   setMinValues(value) {
     if (!value) {
-      console.log("(Clorynin Alert) Parameter value Must Fill!")
+      throw new Error("Parameter value Must Fill!")
       return this
     }
     if(!typeof value === "number") {
-      console.log("(Clorynin Alert) Parameter value Must Be A Number")
+      throw new Error("Parameter value Must Be A Number")
       return this
     }
     this.min_values = value
@@ -75,11 +75,11 @@ class SelectMenu {
   
   setMaxValues(value) {
     if (!value) {
-      console.log("(Clorynin Alert) Parameter value Must Fill!")
+      throw new Error("Parameter value Must Fill!")
       return this
     }
     if(!typeof value === "number") {
-      console.log("(Clorynin Alert) Parameter value Must Be A Number")
+      throw new Error("Parameter value Must Be A Number")
       return this
     }
     this.max_values = value
@@ -88,40 +88,40 @@ class SelectMenu {
   
   addOptions(data) {
     if (!data) {
-      console.log("(Clorynin Alert) Parameter data Must Fill!")
+      throw new Error("Parameter data Must Fill!")
       return this
     }
     if (!Array.isArray(data)) {
-      console.log("(Clorynin Alert) Parameter data Must Be A String")
+      throw new Error("Parameter data Must Be A String")
       return this
     }
     if (!data.length === 0) {
-      console.log("(Clorynin Alert) Parameter data Cannot Be Empty")
+      throw new Error("Parameter data Cannot Be Empty")
       return this
     }
     data.map((neh, num) => {
       if (!neh?.label) {
-        console.log(`(Clorynin Alert) Parameter label Must Fill! [Field ${num}]`)
+        throw new Error(`Parameter label Must Fill! [Field ${num}]`)
         return this
       }
       if (!typeof neh?.label === "string") {
-        console.log(`(Clorynin Alert) Parameter label Must Be A String [Field ${num}]`)
+        throw new Error(`Parameter label Must Be A String [Field ${num}]`)
         return this
       }
       if (neh?.label?.length === 0) {
-        console.log(`(Clorynin Alert) Parameter label Cannot Be Empty [Field ${num}]`)
+        throw new Error(`Parameter label Cannot Be Empty [Field ${num}]`)
         return this
       }
       if (!neh?.value) {
-        console.log(`(Clorynin Alert) Parameter value Must Fill! [Field ${num}]`)
+        throw new Error(`Parameter value Must Fill! [Field ${num}]`)
         return this
       }
       if (!typeof neh?.value === "string") {
-        console.log(`(Clorynin Alert) Parameter value Must Be A String [Field ${num}]`)
+        throw new Error(`Parameter value Must Be A String [Field ${num}]`)
         return this
       }
       if (neh?.value?.length === 0) {
-        console.log(`(Clorynin Alert) Parameter value Cannot Be Empty [Field ${num}]`)
+        throw new Error(`Parameter value Cannot Be Empty [Field ${num}]`)
         return this
       }
 
@@ -130,11 +130,11 @@ class SelectMenu {
       }
       if (!typeof neh?.emoji === "null") {
         if (!typeof neh?.emoji === "string") {
-          console.log("(Clorynin Alert) Parameter iconURL Must Be A String")
+          throw new Error("Parameter iconURL Must Be A String")
           return this
         }
         if (neh?.emoji?.length === 0) {
-          console.log("(Clorynin Alert) Parameter iconURL Cannot Be Empty")
+          throw new Error("Parameter iconURL Cannot Be Empty")
           return this
         }
       }
@@ -144,11 +144,11 @@ class SelectMenu {
       }
       if (!typeof neh?.description === "null") {
         if ((!typeof neh?.description === "string")) {
-          console.log("(Clorynin Alert) Parameter iconURL Must Be A String")
+          throw new Error("Parameter iconURL Must Be A String")
           return this
         }
         if (neh?.description?.length === 0) {
-          console.log("(Clorynin Alert) Parameter iconURL Cannot Be Empty")
+          throw new Error("Parameter iconURL Cannot Be Empty")
           return this
         }
       }
