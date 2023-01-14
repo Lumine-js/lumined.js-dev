@@ -11,7 +11,7 @@ const { SelectMenu } = require('./src/structure/SelectMenu.js')
 const { Modal } = require('./src/structure/Modal.js')
 
 //Util
-const Constants = require('./src/util/constants.js')
+const Constants = require('./src/util/Constants.js')
 const Collection = require('./src/util/Collection.js')
 
 module.exports = {
