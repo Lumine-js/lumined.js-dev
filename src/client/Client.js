@@ -153,15 +153,13 @@ class Client extends EventEmitter {
       method: method,
       url: "https://discord.com/api/v10" + params,
       headers: {
-        Authorization: `Bot ${t.#token
-        }`
+        Authorization: `Bot ${this.#token}`
       }
     }
 
     if (headers) {
       object.headers = headers
-      object.headers.Authorization = `Bot ${this.#token 
-      }`
+      object.headers.Authorization = `Bot ${this.#token}`
     }
 
     if (data) object.data = data
