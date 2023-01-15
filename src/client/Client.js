@@ -36,7 +36,7 @@ class Client extends EventEmitter {
     if (this.ws) {
       throw new Error('Client Already Run')
     }
-    if (this._intents === null) throw new Error("Intents Harus Terisi")
+    if (this.#intents === null) throw new Error("Intents Harus Terisi")
     this.startWebsocket()
   }
 
@@ -70,7 +70,7 @@ class Client extends EventEmitter {
         $browser: 'Lumine.js',
         $device: "linux",
       },
-      intents: this._intents
+      intents: this.#intents
     }
     if (this._loginActivity) BotObjectLogin.presence = this._loginActivity
 
