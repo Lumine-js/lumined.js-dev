@@ -14,10 +14,10 @@ const clc = require("cli-color")
 class Client extends EventEmitter {
   
   #token = options.token ? options.token : null;
-  #intents = options.intents ? options.intents : null
+  #intents = options.intents ? options.intents : null;
   
   constructor(options = {}) {
-    super() 
+    super() ;
 
     this._loginActivity = {
       activities: options.activities ? options.activities : [],
