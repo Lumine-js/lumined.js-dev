@@ -17,7 +17,7 @@ class Client extends EventEmitter {
   #intents = options.intents ? options.intents : null;
   
   constructor(options = {}) {
-    super() ;
+    super(on, emit)
 
     this._loginActivity = {
       activities: options.activities ? options.activities : [],
