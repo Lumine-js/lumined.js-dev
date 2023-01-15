@@ -1,6 +1,5 @@
 class UserClient {
   constructor(options = {}, client) {
-    super()
     this.id = options.user.id
     this.username = options.user.username
     this.discriminator = options.user.discriminator
