@@ -63,8 +63,7 @@ class Client extends EventEmitter {
 
     let BotObjectLogin = {
       // you should put your token here _without_ the "Bot" prefix
-      token: this
-        ._token,
+      token: this.#token,
       properties: {
         $os: "Lumine.js",
         $browser: 'Lumine.js',
@@ -154,8 +153,7 @@ class Client extends EventEmitter {
       method: method,
       url: "https://discord.com/api/v10" + params,
       headers: {
-        Authorization: `Bot ${this
-     ._token 
+        Authorization: `Bot ${t.#token
         }`
       }
     }
