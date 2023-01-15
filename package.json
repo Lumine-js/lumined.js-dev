@@ -1,7 +1,7 @@
 {
   "name":"lumined.js",
   "author":"Kanaka Nakazawa",
-  "version":"v1.0.6.124-dev",
+  "version":"v1.0.5.261-dev",
   "dependencies":{
     "ws": "^8.5.0",
     "axios": "^0.25.0",
