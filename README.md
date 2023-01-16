@@ -8,8 +8,10 @@ Lumine.js (Discord) To Interact With the Discord API
 ```js
 const { Client } = require('lumine.js')
 const client = new Client({
-   intents:[],
-   token:"YOUR BOT TOKEN"
+   intents:1,
+   token:"YOUR BOT TOKEN",
+   activities: [],
+   status: "idle"
 })
 
 client.login()
@@ -20,7 +22,9 @@ client.login()
 ```js
 const { Client } = require('lumine.js')
 const client = new Client({
-   intents:[]
+   intents:1,
+   activities: [],
+   status: "idle"
 })
 
 client.login("YOUR BOT TOKEN")

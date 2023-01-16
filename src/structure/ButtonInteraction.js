@@ -1,6 +1,6 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
-const Constants = require("./../util/constants.js")
+const Constants = require("./../util/Constants.js")
 
 //========== CLASS
 class ButtonInteraction extends BaseInteraction {
@@ -11,38 +11,31 @@ class ButtonInteraction extends BaseInteraction {
 
     var daneta = JSON.parse(JSON.stringify(options))
     this.rawdata = options
-    this.token = daneta?.token || null
-    this.id = daneta?.id || null
-    this.messageId = daneta?.message?.id
-    this.userId = daneta?.member?.id
-    this.channelId = daneta?.channel_id
-    this.guildId = daneta?.guild_id
-    this.locale = daneta?.locale
-    this.guildLocale = daneta?.guild_locale
+    this.token = daneta.token ? dantea.token : null
+    this.id = daneta.id ? daneta.id : null
+    this.messageId = daneta.message.id ? daneta.message.id : null
+    this.userId = daneta.member.id ? daneta.member.id : null
+    this.channelId = daneta.channel_id ? daneta.channel_id : null
+    this.guildId = daneta.guild_id ? daneta.guild_id : null
+    this.locale = daneta.locale ? daneta.locale : null
+    this.guildLocale = daneta.guild_locale ? daneta.guild_locale : null
   }
 
-  reply(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async reply(msgdata) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type: 4,
       data: msgdata
     })
   }
 
-  deferUpdate() {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async deferUpdate() {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type: 6
     })
   }
 
-  update(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type: 7,
-      data: msgdata
-    })
-  }
-
-  showModal(modaldata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+  async showModal(modaldata) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
       type:9,
       data:modaldata
     })

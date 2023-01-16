@@ -1,12 +1,12 @@
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
-const Constants =  require("./../util/Constants.js")
+const Constants = require("./../util/Constants.js")
 
 //========== CLASS
-class ChatInputInteraction extends BaseInteraction {
+class AutocompleteInteraction extends BaseInteraction {
   constructor(options, client) {
     super()
-    
+
     this.client = client || null;
     
     var daneta = JSON.parse(JSON.stringify(options))
@@ -22,33 +22,18 @@ class ChatInputInteraction extends BaseInteraction {
     this.token = daneta.token ? daneta.token : null
     this.id = daneta.id ? daneta.id : null
   }
-  
-  reply(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type:4,
-      data:msgdata
+
+  async respond(options = []) {
+    await this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
+      type: 8,
+      data: {
+        choices: options || []
+      }
     })
   }
   
-  deferReply() {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type:5
-    })
-  }
-  
-  followUp(msgdata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.FOLLOWUP_INTERACTION(this.client.user.id, this.token), msgdata)
-  }
-  
-  editReply(msgdata) {
-    this.client.requestAPI("PATCH", Constants.ENDPOINTS.EDIT_INTERACTION(this.client.user.id, this.token), msgdata)
-  }
-  
-  showModal(modaldata) {
-    this.client.requestAPI("POST", Constants.ENDPOINTS.RESPOND_INTERACTION(this.id, this.token), {
-      type:9,
-      data:modaldata
-    })
+  getFocused(key) {
+    return this.options.find(x => x.focused === true && x.name === key) ? this.options.find(x => x.focused === true && x.name === key).value : this.options[0]?.options.find(x => x.focused === true && x.name === key) ? this.options[0]?.options.find(x => x.focused === true && x.name === key).value : this.options[0]?.options[0]?.options.find(x => x.focused === true && x.name === key) ? this.options[0]?.options[0]?.options.find(x => x.focused === true && x.name === key).value : null;
   }
   
   getSubcommandGroup() {
@@ -96,4 +81,4 @@ class ChatInputInteraction extends BaseInteraction {
   }
 }
 
-module.exports = ChatInputInteraction
+module.exports = AutocompleteInteraction
