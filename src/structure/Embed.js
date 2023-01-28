@@ -2,7 +2,9 @@ const { ResolveColor } = require("./../util/Constants.js")
 
 class Embed {
   constructor(raw) {
-    this.title = raw.title ? raw.title : null
+    if (raw.title !== undefined) {
+      this.title = raw.title
+    }
     this.description = raw.description ? raw.description : null
     this.url = raw.url ? raw.url : null
     this.fields = raw.fields ? raw.fields : []
