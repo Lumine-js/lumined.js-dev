@@ -2,9 +2,22 @@
   "name":"lumined.js",
   "author":"Kanaka Nakazawa",
   "version":"v1.0.5.311-dev",
+  "exports": {
+    ".": [
+      {
+        "require": "./index.js",
+        "import": "./esm.mjs"
+      },
+      "./index.js"
+    ],
+    "./": "./",
+    "./esm": "./esm.mjs"
+  },
   "dependencies":{
     "ws": "^8.5.0",
     "axios": "^0.25.0",
-    "cli-color": "^2.0.3"
+    "cli-color": "^2.0.3",
+    "eslint": "^7.32.0",
+    "eslint-plugin-sort-class-members": "^1.14.0"
   }
 }
