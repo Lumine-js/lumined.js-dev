@@ -1,6 +1,6 @@
-import lumined-js from "./index.js";
+import luminedjs from "./index.js";
 
 export const {
   Client,
   Collection
-} = lumined-js
+} = luminedjs
