@@ -1,3 +1,5 @@
+"use strict";
+
 class Collection extends Map {
   map(func) {
     const arr = [];
