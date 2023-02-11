@@ -1,5 +1,3 @@
-"use strict"; 
-
 //Client
 const Client = require("./src/client/Client.js")
 

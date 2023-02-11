@@ -1,6 +1,8 @@
 # LumineDiscord.js
 Lumine.js (Discord) To Interact With the Discord API 
 
+Note : This module is a development stage module. If there is a problem we are not responsible
+
 ## How To Login?
 
 • Method 1
