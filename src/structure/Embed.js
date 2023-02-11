@@ -45,7 +45,7 @@ class Embed {
       }
 
       if (!Array.isArray(this.fields)) this.fields = []
-      this.fields.push({ name|| name, value|| value, inline|| inline })
+      this.fields.push({ name , value, inline })
       return this
     } catch (err) {
       throw new Error(err)
