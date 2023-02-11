@@ -181,6 +181,10 @@ class Client extends EventEmitter {
 
     })
   }
+  
+  async sendMessage(id, content) {
+    return this.requestAPI("POST", Constants.ENDPOINTS.CREATE_MESSAGE(id), content)
+  }
 
   async getUser(userid = "") {
     if (userid.length === 0) throw new Error("User ID Tidak Ada")
