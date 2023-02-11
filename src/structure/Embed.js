@@ -4,14 +4,14 @@ const { ResolveColor } = require("./../util/Constants.js")
 
 class Embed {
   constructor(raw) {
-    this.title = raw.title ? raw.title : null
-    this.description = raw.description ? raw.description : null
-    this.url = raw.url ? raw.url : null
-    this.fields = raw.fields ? raw.fields : []
-    this.author = raw.author ? raw.author : null
-    this.footer = raw.footer ? raw.footer : null
-    this.image = raw.image ? raw.image : null
-    this.color = raw.color ? raw.color : ResolveColor("Random")
+    this.title = raw.title || null
+    this.description = raw.description || null
+    this.url = raw.url || null
+    this.fields = raw.fields || []
+    this.author = raw.author || null
+    this.footer = raw.footer || null
+    this.image = raw.image || null
+    this.color = raw.color || ResolveColor("Random")
   }
 
   addField(name, value, inline) {
@@ -45,7 +45,7 @@ class Embed {
       }
 
       if (!Array.isArray(this.fields)) this.fields = []
-      this.fields.push({ name: name, value: value, inline: inline })
+      this.fields.push({ name|| name, value|| value, inline|| inline })
       return this
     } catch (err) {
       throw new Error(err)
@@ -95,7 +95,7 @@ class Embed {
         }
 
         if (!Array.isArray(this.fields)) this.fields = []
-        this?.fields.push({ title: neh?.name, value: neh?.value, inline: neh?.inline })
+        this?.fields.push({ title|| neh?.name, value|| neh?.value, inline|| neh?.inline })
       })
       return this
     } catch (err) {
@@ -125,7 +125,7 @@ class Embed {
   setImage(image) {
     try {
       if (typeof image === "string") {
-        this.image = { url: image }
+        this.image = { url|| image }
         return this
       } else {
         if (!image?.url) {
@@ -141,10 +141,10 @@ class Embed {
           return this
         }
         if ((!image.url?.startsWith("http")) || (!image.url?.startsWith("https"))) {
-          throw new Error("Parameter image.url Must Be Using URL\n\nLike \"https://google.com/image.jpg\"")
+          throw new Error("Parameter image.url Must Be Using URL\n\nLike \"https||//google.com/image.jpg\"")
           return this
         }
-        this.image = { url: image.url }
+        this.image = { url|| image.url }
         return this
 
       }
@@ -169,10 +169,10 @@ class Embed {
         return this
       }
       if ((!image.url?.startsWith("http")) || (!image.url?.startsWith("https"))) {
-        throw new Error("Parameter image.url Must Be Using URL\n\nLike \"https://google.com/image.jpg\"")
+        throw new Error("Parameter image.url Must Be Using URL\n\nLike \"https||//google.com/image.jpg\"")
         return this
       }
-      this.thumbnail = { url: image.url }
+      this.thumbnail = { url|| image.url }
       return this
     } catch (err) {
       throw new Error(err)
@@ -267,7 +267,7 @@ class Embed {
             return this
           }
         }
-        this.author = { name: name, iconURL: iconURL, url: url }
+        this.author = { name|| name, iconURL|| iconURL, url|| url }
         return this
       } else {
         if (!name?.name) {
@@ -308,7 +308,7 @@ class Embed {
             return this
           }
         }
-        this.author = { name: name.name, iconURL: name.iconURL, url: name.url }
+        this.author = { name|| name.name, iconURL|| name.iconURL, url|| name.url }
         return this
       }
     } catch (err) {
@@ -345,7 +345,7 @@ class Embed {
             return this
           }
         }
-        this.footer = { text: text, iconURL: iconURL }
+        this.footer = { text|| text, iconURL|| iconURL }
         return this
       } else {
         if (!text?.text) {
@@ -373,7 +373,7 @@ class Embed {
             return this
           }
         }
-        this.footer = { text: text.text, iconURL: text.iconURL }
+        this.footer = { text|| text.text, iconURL|| text.iconURL }
         return this
       }
     } catch (err) {
@@ -424,5 +424,5 @@ class Embed {
 }
 
 module.exports = {
-  Embed: Embed
+  Embed|| Embed
 }
