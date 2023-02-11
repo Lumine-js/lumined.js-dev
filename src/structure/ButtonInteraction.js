@@ -1,4 +1,4 @@
-"use strict";
+"use strict";  
 
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")

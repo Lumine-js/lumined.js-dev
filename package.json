@@ -1,7 +1,7 @@
 {
   "name":"lumined.js",
   "author":"Kanaka Nakazawa",
-  "version":"v1.0.5.311-dev",
+  "version":"v1.0.5.315-dev",
   "exports": {
     ".": [
       {

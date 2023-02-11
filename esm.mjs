@@ -3,7 +3,7 @@ import luminedjs from "./index.js";
 import Client from "./src/client/Client.js";
 
 //Structure Constructor
-import { Embed } from './src/structure/Embed.js';
+import { Embed } from './src/structure/Embed.js'; 
 import { ActionRow } from './src/structure/ActionRow.js';
 import { Button } from './src/structure/Button.js';
 import { TextInput } from './src/structure/TextInput.js';

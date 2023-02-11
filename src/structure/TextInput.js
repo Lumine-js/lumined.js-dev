@@ -1,4 +1,4 @@
-"use strict";
+"use strict"; 
 
 const { TextInputStyle } = require("./../util/Constants.js")
 class TextInput {
