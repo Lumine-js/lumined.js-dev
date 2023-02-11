@@ -4,14 +4,14 @@ const { ResolveColor } = require("./../util/Constants.js")
 
 class Embed {
   constructor(raw) {
-    this.title = raw.title || null
-    this.description = raw.description || null
-    this.url = raw.url || null
-    this.fields = raw.fields || []
-    this.author = raw.author || null
-    this.footer = raw.footer || null
-    this.image = raw.image || null
-    this.color = raw.color || ResolveColor("Random")
+    this.title = raw?.title || null
+    this.description = raw?.description || null
+    this.url = raw?.url || null
+    this.fields = raw?.fields || []
+    this.author = raw?.author || null
+    this.footer = raw?.footer || null
+    this.image = raw?.image || null
+    this.color = raw?.color || ResolveColor("Random")
   }
 
   addField(name, value, inline) {
