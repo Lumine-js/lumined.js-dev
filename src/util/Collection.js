@@ -1,5 +1,3 @@
-
-
 class Collection extends Map {
   map(func) {
     const arr = [];

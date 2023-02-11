@@ -1,5 +1,3 @@
-
-
 module.exports.CommandOptionType = (arg) => {
   const values = {
     SUB_COMMAND: 1,

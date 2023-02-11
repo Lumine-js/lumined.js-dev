@@ -11,16 +11,17 @@ class ChatInputInteraction extends BaseInteraction {
 
     var daneta = JSON.parse(JSON.stringify(options))
     //this.rawdata = options
-    this.name = daneta.data.name ? daneta.data.name : null
-    this.description = daneta.data.description ? daneta.data.description : null
-    this.locale = daneta.locale ? daneta.locale : null
-    this.guildLocale = daneta.guild_locale ? daneta.guild_locale : null
-    this.guildId = daneta.guild_id ? daneta.guild_id : null
-    this.channelId = daneta.channel_id ? daneta.channel_id : null
-    this.authorId = daneta.member.user.id ? daneta.member.user.id : null
-    this.options = daneta.data.options ? daneta.data.options : []
-    this.token = daneta.token ? daneta.token : null
-    this.id = daneta.id ? daneta.id : null
+    
+    this.name = daneta?.data?.name || null
+    this.description = daneta?.data?.description || null
+    this.locale = daneta?.locale || null
+    this.guildLocale = daneta?.guild_locale || null
+    this.guildId = daneta?.guild_id || null
+    this.channelId = daneta?.channel_id || null
+    this.authorId = daneta?.member?.user?.id || null
+    this.options = daneta?.data?.options || []
+    this.token = daneta?.token || null
+    this.id = daneta?.id || null 
   }
 
   reply(msgdata) {

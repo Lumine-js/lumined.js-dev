@@ -1,10 +1,8 @@
-
-
 class Modal {
   constructor(data) {
-    this.title = data.title ? data.title : null
-    this.custom_id = data.custom_id ? data.custom_id : null
-    this.components = data.components ? data.components : null
+    this.title = data?.title || null
+    this.custom_id = data?.custom_id || null
+    this.components = data?.components || null
   }
   
   setTitle(title) {

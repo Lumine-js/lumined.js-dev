@@ -1,15 +1,13 @@
-
-
 const { ButtonStyle } = require("./../util/Constants.js")
 
 class Button {
   constructor(data) {
     this.type = 2
-    this.style = data.style ? data.style : null
-    this.label = data.label ? data.label : null
-    this.custom_id = data.custom_id ? data.custom_id : null
-    this.url = data.url ? data.url : null
-    this.disabled = data.disabled ? data.disabled : false
+    this.style = data?.style || null
+    this.label = data?.label || null
+    this.custom_id = data?.custom_id || null
+    this.url = data?.url || null
+    this.disabled = data?.disabled || false
   }
 
   setLabel(label) {

@@ -1,5 +1,3 @@
-
-
 class BaseInteraction {
   constructor(options = {}) {
     this.token = null

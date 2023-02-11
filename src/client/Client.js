@@ -1,5 +1,3 @@
-
-
 //========== STRUCTURE DATA
 const Constants = require("./../util/Constants.js")
 const CommandInputInteraction = require("./../structure/ChatInputInteraction.js")
@@ -20,11 +18,11 @@ class Client extends EventEmitter {
   
   constructor(options = {}) {
     super()
-    this.#token = options.token ? options.token : null;
-    this.#intents = options.intents ? options.intents : null
+    this.#token = options?.token || null;
+    this.#intents = options?.intents || null
     this._loginActivity = {
-      activities: options.activities ? options.activities : [],
-      status: options.status ? options.status : "online"
+      activities: options?.activities || [],
+      status: options?.status || "online"
     }
 
     this.ws = null

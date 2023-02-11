@@ -1,9 +1,7 @@
-
-
 class ActionRow {
   constructor(data) {
     this.type = 1
-    this.components = data.components ? data.components : null
+    this.components = data.components || null
   }
 
   addComponent(obj) {

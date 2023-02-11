@@ -1,17 +1,15 @@
-
-
 const { TextInputStyle } = require("./../util/Constants.js")
 class TextInput {
   constructor(data) {
     this.type = 4
-    this.label = data.label ? data.label : null
-    this.placeholder =
-    this.custom_id = data.custom_id ? data.custom_id : null
-    this.value = data.value ? data.value : null
-    this.style = data.style ? data.style : null
-    this.max_length = data.max_length ? data.max_length : null
-    this.min_length = data.min_length ? data.min_length : null
-    this.required = data.required ? data.required : false
+    this.label = data?.label || null
+    this.placeholder = data?.placeholder || null
+    this.custom_id = data?.custom_id || null
+    this.value = data?.value || null
+    this.style = data?.style || null
+    this.max_length = data?.max_length || null
+    this.min_length = data?.min_length || null
+    this.required = data?.required || false
   }
 
   setPlaceholder(placeholder) {
