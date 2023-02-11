@@ -1,4 +1,4 @@
-"use strict";  
+
 
 const { ResolveColor } = require("./../util/Constants.js")
 
