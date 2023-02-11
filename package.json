@@ -19,11 +19,11 @@
     "lint:ts": "eslint -c .eslintrc.ts.yml *.ts",
     "lint:ts:fix": "eslint -c .eslintrc.ts.yml *.ts --fix && echo \"\u001b[1m\u001b[32mOK\u001b[39m\u001b[22m\" || echo \"\u001b[1m\u001b[31mNot OK\u001b[39m\u001b[22m\""
   },
-  "dependencies":{
+  "dependencies": {
     "ws": "^8.5.0",
     "axios": "^0.25.0",
-    "cli-color": "^2.0.3",
-  }
+    "cli-color": "^2.0.3"
+  },
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-plugin-sort-class-members": "^1.14.0"
