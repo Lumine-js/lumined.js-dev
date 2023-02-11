@@ -1,3 +1,5 @@
+"use strict";
+
 class SelectMenu {
   constructor(data) {
     this.type = 3

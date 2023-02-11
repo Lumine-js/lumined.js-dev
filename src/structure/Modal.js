@@ -1,3 +1,5 @@
+"use strict";
+
 class Modal {
   constructor(data) {
     this.title = data.title ? data.title : null

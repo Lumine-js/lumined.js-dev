@@ -1,3 +1,5 @@
+"use strict";
+
 const { ButtonStyle } = require("./../util/Constants.js")
 
 class Button {

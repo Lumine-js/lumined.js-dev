@@ -1,3 +1,5 @@
+"use strict";
+
 class UserClient {
   constructor(options = {}, client) {
     this.id = options.user.id

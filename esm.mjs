@@ -4,11 +4,11 @@ import Client from "./src/client/Client.js";
 
 //Structure Constructor
 import { Embed } from './src/structure/Embed.js';
-import { ActionRow } = from './src/structure/ActionRow.js';
-import { Button } = from './src/structure/Button.js';
+import { ActionRow } from './src/structure/ActionRow.js';
+import { Button } from './src/structure/Button.js';
 import { TextInput } from './src/structure/TextInput.js';
 import { SelectMenu } from './src/structure/SelectMenu.js';
-import { Modal } = from './src/structure/Modal.js';
+import { Modal } from './src/structure/Modal.js';
 
 //Util
 const Constants = require('./src/util/Constants.js')

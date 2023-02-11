@@ -1,3 +1,5 @@
+"use strict";
+
 //========== STRUCTURE DATA
 const BaseInteraction = require("./BaseInteraction.js")
 const Constants =  require("./../util/Constants.js")

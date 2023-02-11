@@ -1,3 +1,5 @@
+"use strict";
+
 class ActionRow {
   constructor(data) {
     this.type = 1
