@@ -45,7 +45,7 @@ class Embed {
       }
 
       if (!Array.isArray(this.fields)) this.fields = []
-      this.fields.push({ name , value, inline })
+      this.fields.push({ name: name, value: value, inline: inline })
       return this
     } catch (err) {
       throw new Error(err)
@@ -95,7 +95,7 @@ class Embed {
         }
 
         if (!Array.isArray(this.fields)) this.fields = []
-        this?.fields.push({ title|| neh?.name, value|| neh?.value, inline|| neh?.inline })
+        this?.fields.push({ title: neh?.name, value: neh?.value, inline: neh?.inline })
       })
       return this
     } catch (err) {
@@ -125,7 +125,7 @@ class Embed {
   setImage(image) {
     try {
       if (typeof image === "string") {
-        this.image = { url|| image }
+        this.image = { url: image }
         return this
       } else {
         if (!image?.url) {
@@ -144,7 +144,7 @@ class Embed {
           throw new Error("Parameter image.url Must Be Using URL\n\nLike \"https||//google.com/image.jpg\"")
           return this
         }
-        this.image = { url|| image.url }
+        this.image = { url: image.url }
         return this
 
       }
@@ -172,7 +172,7 @@ class Embed {
         throw new Error("Parameter image.url Must Be Using URL\n\nLike \"https||//google.com/image.jpg\"")
         return this
       }
-      this.thumbnail = { url|| image.url }
+      this.thumbnail = { url: image.url }
       return this
     } catch (err) {
       throw new Error(err)
@@ -267,7 +267,7 @@ class Embed {
             return this
           }
         }
-        this.author = { name|| name, iconURL|| iconURL, url|| url }
+        this.author = { name: name, iconURL: iconURL, url: url }
         return this
       } else {
         if (!name?.name) {
@@ -308,7 +308,7 @@ class Embed {
             return this
           }
         }
-        this.author = { name|| name.name, iconURL|| name.iconURL, url|| name.url }
+        this.author = { name: name.name, iconURL: name.iconURL, url: name.url }
         return this
       }
     } catch (err) {
@@ -345,7 +345,7 @@ class Embed {
             return this
           }
         }
-        this.footer = { text|| text, iconURL|| iconURL }
+        this.footer = { text: text, iconURL: iconURL }
         return this
       } else {
         if (!text?.text) {
@@ -373,7 +373,7 @@ class Embed {
             return this
           }
         }
-        this.footer = { text|| text.text, iconURL|| text.iconURL }
+        this.footer = { text: text.text, iconURL: text.iconURL }
         return this
       }
     } catch (err) {
@@ -424,5 +424,5 @@ class Embed {
 }
 
 module.exports = {
-  Embed|| Embed
+  Embed: Embed
 }
