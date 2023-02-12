@@ -1,8 +1,8 @@
 {
   "name":"lumined.js",
   "author":"Kanaka Nakazawa",
-  "version":"v1.0.5.317-dev",
-  "dependencies": {
+  "version":"v1.0.5.000",
+  "dependencies":{
     "ws": "^8.5.0",
     "axios": "^0.25.0",
     "cli-color": "^2.0.3"
