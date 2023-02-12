@@ -12,10 +12,10 @@ const clc = require("cli-color")
 
 //========= CLASS
 class Client extends EventEmitter {
-  
+
   #token;
   #intents;
-  
+
   constructor(options = {}) {
     super()
     this.#token = options?.token || null;
@@ -165,7 +165,7 @@ class Client extends EventEmitter {
     if (data) object.data = data
 
 
-    return axios(object).then(x =>
+    await axios(object).then(x =>
     {
       return x.data
     }).catch(err => {
@@ -181,19 +181,53 @@ class Client extends EventEmitter {
 
     })
   }
-  
+
   async sendMessage(id, content) {
-    return this.requestAPI("POST", Constants.ENDPOINTS.CREATE_MESSAGE(id), content)
+    return this.requestAPI("POST", Constants.ENDPOINTS.CREATE_MESSAGE(id), content).then(x => x)
+  }
+
+  async getGuildWebhooks(guildid) {
+    if (channelid.length === 0) throw new Error("Guild ID Tidak Ada")
+    return this.requestAPI("GET", Constants.ENDPOINTS.GUILD_WEBHOOK(guildid)).then(x => x)
+  }
+  async getChannelWebooks(channelid) {
+    if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
+    return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL_WEBHOOK(channelid)).then(x => x)
+  }
+  async createWebook(channelid, data) {
+    if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
+    return this.requestAPI("POST", Constants.ENDPOINTS.CHANNEL_WEBHOOK(channelid), data).then(x => x)
+  }
+
+  async getWebook(webhookid) {
+    if (webhookid.length === 0) throw new Error("Webhook ID Tidak Ada")
+    return this.requestAPI("GET", Constants.ENDPOINTS.WEBHOOK(webhookid)).then(x => x)
+  }
+
+  async editWebhook(webhookid, data) {
+    if (webhookid.length === 0) throw new Error("Webhook ID Tidak Ada")
+    return this.requestAPI("PATCH", Constants.ENDPOINTS.WEBHOOK(webhookid), data).then(x => x)
+  }
+
+  async deleteWebhook(webhookid) {
+    if (webhookid.length === 0) throw new Error("Webhook ID Tidak Ada")
+    return this.requestAPI("DELETE", Constants.ENDPOINTS.WEBHOOK(webhookid)).then(x => x)
+  }
+
+  async sendMessageWebhook(webhookid, webhooktoken, content) {
+    if (webhookid.length === 0) throw new Error("Webhook ID Tidak Ada")
+    if (webhooktoken.length === 0) throw new Error("Webhook Token Tidak Ada")
+    return this.requestAPI("GET", Constants.ENDPOINTS.SEND_WEBHOOK(webhookid, webhooktoken), content).then(x => x)
   }
 
   async getUser(userid = "") {
     if (userid.length === 0) throw new Error("User ID Tidak Ada")
-    return this.requestAPI("GET", Constants.ENDPOINTS.USER(userid))
+    return this.requestAPI("GET", Constants.ENDPOINTS.USER(userid)).then(x => x)
   }
 
   async getChannel(channelid = "") {
     if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
-    return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid))
+    return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid)).then(x => x)
   }
 }
 
