@@ -1,7 +1,7 @@
 class BaseInteraction {
   constructor(options = {}) {
     this.token = null
-    this?.rawdata = null
+    this.rawdata = null
   }
   
   isCommand() {
