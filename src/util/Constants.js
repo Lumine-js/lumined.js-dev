@@ -144,7 +144,7 @@ module.exports.ResolveColor = (args) => {
   }
 }
 
-module.exports.ActivityType = (type) => {
+module.exports.ActivityType = (arg) => {
   const values = {
     PLAYING: 0,
     STREAMING: 1,
