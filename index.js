@@ -16,6 +16,7 @@ const Collection = require('./src/util/Collection.js')
 module.exports = {
   Client: Client,
   Collection: Collection,
+  Constants: Constants,
   Resolver: {
     CommandOptionType: Constants.CommandOptionType,
     CommandPermissionType: Constants.CommandPermissionType,

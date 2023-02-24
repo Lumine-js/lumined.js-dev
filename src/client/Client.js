@@ -190,16 +190,16 @@ class Client extends EventEmitter {
     if (channelid.length === 0) throw new Error("Guild ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.GUILD_WEBHOOK(guildid)).then(x => x)
   }
-  async getChannelWebooks(channelid) {
+  async getChannelWebhooks(channelid) {
     if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL_WEBHOOK(channelid)).then(x => x)
   }
-  async createWebook(channelid, data) {
+  async createWebhook(channelid, data) {
     if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
     return this.requestAPI("POST", Constants.ENDPOINTS.CHANNEL_WEBHOOK(channelid), data).then(x => x)
   }
 
-  async getWebook(webhookid) {
+  async getWebhook(webhookid) {
     if (webhookid.length === 0) throw new Error("Webhook ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.WEBHOOK(webhookid)).then(x => x)
   }
