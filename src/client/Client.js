@@ -165,7 +165,7 @@ class Client extends EventEmitter {
     if (data) object.data = data
 
 
-    await axios(object).then(x =>
+    return axios(object).then(x =>
     {
       console.log(x.data)
       return x.data
