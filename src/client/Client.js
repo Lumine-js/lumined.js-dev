@@ -218,7 +218,7 @@ class Client extends EventEmitter {
   async sendMessageWebhook(webhookid, webhooktoken, content) {
     if (webhookid.length === 0) throw new Error("Webhook ID Tidak Ada")
     if (webhooktoken.length === 0) throw new Error("Webhook Token Tidak Ada")
-    return this.requestAPI("GET", Constants.ENDPOINTS.SEND_WEBHOOK(webhookid, webhooktoken), content).then(x => x)
+    return this.requestAPI("POST", Constants.ENDPOINTS.SEND_WEBHOOK(webhookid, webhooktoken), content).then(x => x)
   }
 
   async getUser(userid = "") {
