@@ -171,7 +171,7 @@ module.exports.ENDPOINTS = {
   CHANNEL: (channel_id) => `/channels/${channel_id}`,
   CREATE_MESSAGE: (channel_id) => `/channels/${channel_id}/messages`,
   CHANNEL_WEBHOOK: (channel_id) => `/channels/${channel_id}/webhooks`,
-  GUILD_WEBHOOK: (guild_id) => `/channels/${channel_id}/webhooks`,
+  GUILD_WEBHOOK: (guild_id) => `/channels/${guild_id}/webhooks`,
   WEBHOOK: (webhook_id) => `/webhooks/${webhook_id}`,
   SEND_WEBHOOK: (webhook_id, webhook_token) => `/webhooks/${webhook_id}/${webhook_token}`
 }

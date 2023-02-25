@@ -211,7 +211,7 @@ class Client extends EventEmitter {
   }
   async createWebhook(channelid, data) {
     if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
-    return this.requestAPI("POST", Constants.ENDPOINTS.CHANNEL_WEBHOOK(channelid), data).then(x => x)
+    return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL_WEBHOOK(channelid), data).then(x => x)
   }
 
   async getWebhook(webhookid) {
