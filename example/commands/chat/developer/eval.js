@@ -1,13 +1,13 @@
 const { Embed } = require("lumined.js")
 module.exports = {
-  name = "eval",
-  description = "",
-  BotPermissions = [],
-  AuthorPermissions = [],
-  required = {
+  name: "eval",
+  description: "",
+  BotPermissions: [],
+  AuthorPermissions: [],
+  required: {
     developer: true 
   },
-  run = async (client, mi, interaction) => {
+  run: async (client, mi, interaction) => {
     const { Embed, Button, ActionRow, SelectMenu } = require('lumined.js')
 
     const process = require('child_process')

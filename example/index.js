@@ -23,7 +23,7 @@ app.listen(process.env.port)
 const { Client, Embed, ActionRow, Button, Resolver } = require("lumined.js")
 const client = new Client({
   token: process.env.dtoken,
-  intents: 4616,
+  intents: 1,
   activities: [{
     name: 'Lumined.js Testing',
     type: Resolver.ActivityType("PLAYING")
