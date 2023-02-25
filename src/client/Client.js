@@ -193,6 +193,8 @@ class Client extends EventEmitter {
                     error: ${JSON.stringify(DiscordERROR.errors)},
                     url: ${object.url}
                   }`)
+      } else {
+        throw new Error(err)
       }
 
     })
