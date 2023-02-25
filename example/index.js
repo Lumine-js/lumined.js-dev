@@ -58,14 +58,13 @@ client.on('ready', () => {
       type: Resolver.CommandOptionType("STRING"),
       required: true
     }]
-  }], "940979074883518464")
+  }])
+  client.updateCommands([], "940979074883518464")
 })
 
 client.on("ChatInputInteraction", async (interaction) => {
   let answered = false
   const multiInternal = {
-    lang: lang,
-    emoji: emoji,
     send: (data, poi = false) => {
       var varena;
       if (!poi) varena = {
