@@ -119,9 +119,9 @@ class Client extends EventEmitter {
           // we should get this after we send identify
           case 'READY':
             this.user = new UserClient(packet.d)
-            this.emit("ready", new UserClient(packet.d, this))
+            this.emit("ready", new this.user)
             const packg = require("./../../package.json")
-            console.log(`Bot ${clc.bold.blue(new UserClient(packet.d, this).username)} telah aktif, \nTerimakasih menggunakan ${clc.yellow.bold(packg.name)} versi ${packg.version}.\nDokumentasi bisa diperiksa pada \n${clc.blue(`https://github.com/Lumine-js/${packg.name}`)}\n\n\n\n`)
+            console.log(`Bot ${clc.bold.blue(new this.user.username)} telah aktif, \nKamu menggunakan ${clc.yellow.bold(packg.name)} versi ${packg.version}.\nDokumentasi bisa diperiksa pada \n${clc.blue(`https://github.com/Lumine-js/${packg.name}`)}\n\n\n\n`)
             break;
           case 'INTERACTION_CREATE':
             if (packet.d.type === 2 && packet.d.data.type === 1) {
