@@ -47,7 +47,7 @@ class Client extends EventEmitter {
 
   async updateCommands(commandsarray, guildid) {
     if (!guildid) {
-      await this.requestAPI("PUT", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.id), commandsarray)
+      await this.requestAPI("PUT", Constants.ENDPOINTS.GLOBAL_COMMANDS(this.user.id), commandsarray)
     } else {
       await this.requestAPI("PUT", Constants.ENDPOINTS.GUILD_COMMANDS(this.user.id, guildid), commandsarray)
     }
