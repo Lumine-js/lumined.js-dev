@@ -18,12 +18,13 @@ class Client extends EventEmitter {
 
   #token;
   #intents;
-
+  #loginActivity
+  
   constructor(options = {}) {
     super()
     this.#token = options?.token || null;
     this.#intents = options?.intents || null
-    this._loginActivity = {
+    this.#loginActivity = {
       activities: options?.activities || [],
       status: options?.status || "online"
     }
@@ -80,7 +81,7 @@ class Client extends EventEmitter {
       },
       intents: this.#intents
     }
-    if (this._loginActivity) BotObjectLogin.presence = this._loginActivity
+    if (this.#loginActivity) BotObjectLogin.presence = this.#loginActivity
 
     if (!this.wsUrl) {
       this.ws = new WebSocket(wssurl)
@@ -182,7 +183,6 @@ class Client extends EventEmitter {
 
     return axios(object).then(x =>
     {
-      console.log(x.data)
       return x.data
     }).catch(err => {
       if (err.response.status === 400) {
