@@ -182,6 +182,7 @@ class Client extends EventEmitter {
 
     return axios(object).then(x =>
     {
+      console.log(x.data)
       return x.data
     }).catch(err => {
       if (err.response.status === 400) {
