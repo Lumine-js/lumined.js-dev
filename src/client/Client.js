@@ -4,6 +4,9 @@ const CommandInputInteraction = require("./../structure/ChatInputInteraction.js"
 const UserClient = require("./../structure/UserClient.js")
 const ButtonInteraction = require('./../structure/ButtonInteraction.js')
 const AutocompleteInteraction = require('./../structure/AutocompleteInteraction.js')
+
+const Guild = require('./../structure/Guild.js')
+const GuildManager = require('./../manager/GuildManager.js')
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
 const axios = require('axios')
@@ -27,6 +30,11 @@ class Client extends EventEmitter {
 
     this.ws = null
     this.user = null
+    
+    //CacheManager
+    this.channels = []
+    this.guilds = new GuildManager()
+    this.members = []
   }
 
   login(token) {
@@ -140,6 +148,9 @@ class Client extends EventEmitter {
               this.emit('Autocomplete', new AutocompleteInteraction(packet.d, this))
             }
             break;
+          case "GUILD_CREATE":
+            this.guilds.cache.set(packet.d.id, packet.d)
+            this.emit("guildCreate", new Guild(packet.d))
         }
       };
     }

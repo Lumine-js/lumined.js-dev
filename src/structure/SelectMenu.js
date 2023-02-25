@@ -164,6 +164,4 @@ class SelectMenu {
   }
 }
 
-module.exports = {
-  SelectMenu: SelectMenu
-}
+module.exports = SelectMenu

@@ -86,6 +86,4 @@ class Modal {
   }
 }
 
-module.exports = {
-  Modal: Modal
-}
+module.exports = Modal

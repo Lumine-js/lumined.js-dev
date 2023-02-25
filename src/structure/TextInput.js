@@ -183,6 +183,4 @@ class TextInput {
   }
 }
 
-module.exports = {
-  TextInput: TextInput
-}
+module.exports = TextInput
