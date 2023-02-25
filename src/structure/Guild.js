@@ -1,7 +1,7 @@
 class Guild {
   constructor(body) {
-    this.id = body?.name || null
-    this.id = body?.description || null
+    this.name = body?.name || null
+    this.description = body?.description || null
     this.id = body?.id || null
     
     //CacheManager

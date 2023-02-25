@@ -30,7 +30,7 @@ class Client extends EventEmitter {
 
     this.ws = null
     this.user = null
-    
+
     //CacheManager
     this.channels = []
     this.guilds = new GuildManager()
@@ -91,7 +91,6 @@ class Client extends EventEmitter {
 
     if (!this?.wsUrl === wssurl) {
       this.ws.onclose = this.ws.onerror = (e) => {
-        this.ws.close()
         this.ws = null
         this.emit("moduleLogging", 'Try To Reconnect')
         this.startWebsocket()
@@ -128,13 +127,10 @@ class Client extends EventEmitter {
         switch (packet.t) {
           // we should get this after we send identify
           case 'READY':
-            
+
             //Pendefinisian
             this.user = new UserClient(packet.d)
-            //this.guilds = new GuildManager(packet.d.guilds)
-            
-            
-            
+            this.guilds = new GuildManager(packet.d.guilds)
             this.emit("ready", this.user)
             const packg = require("./../../package.json")
             console.log(`Bot ${clc.bold.blue(this.user.username)} telah aktif, \nKamu menggunakan ${clc.yellow.bold(packg.name)} versi ${packg.version}.\nDokumentasi bisa diperiksa pada \n${clc.blue(`https://github.com/Lumine-js/${packg.name}`)}\n\n\n\n`)
