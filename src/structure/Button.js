@@ -168,6 +168,4 @@ class Button {
 
 }
 
-module.exports = {
-  Button: Button
-}
+module.exports = Button

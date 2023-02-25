@@ -38,6 +38,4 @@ class ActionRow {
   }
 }
 
-module.exports = {
-  ActionRow: ActionRow
-}
+module.exports = ActionRow
