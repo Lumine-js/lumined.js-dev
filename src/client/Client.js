@@ -193,10 +193,11 @@ class Client extends EventEmitter {
                     error: ${JSON.stringify(DiscordERROR.errors)},
                     url: ${object.url}
                   }`)
-      } else {
+      } else if (err.response.status === 429) {
+        throw new Error("You have submitted too many requests")
+        } else {
         throw new Error(err)
       }
-
     })
   }
 
