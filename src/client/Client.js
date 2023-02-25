@@ -202,7 +202,7 @@ class Client extends EventEmitter {
   }
 
   async getGuildWebhooks(guildid) {
-    if (channelid.length === 0) throw new Error("Guild ID Tidak Ada")
+    if (guildid.length === 0) throw new Error("Guild ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.GUILD_WEBHOOK(guildid)).then(x => x)
   }
   async getChannelWebhooks(channelid) {
