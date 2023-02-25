@@ -13,13 +13,12 @@ module.exports.CommandOptionType = (arg) => {
     ATTACHMENT: 11
   }
 
-  arg = arg.toUpperCase()
-  const value = values[arg]
-  const string = Object.keys(values).find(key => values[key] === arg)
-
-  if (value) {
+  if (typeof arg === "string") {
+    arg = arg.toUpperCase()
+    const value = values[arg]
     return value
-  } else if (string) {
+  } else if (typeof arg === "number") {
+    const string = Object.keys(values).find(key => values[key] === arg)
     return string
   } else {
     return null
@@ -33,13 +32,12 @@ module.exports.CommandType = (arg) => {
     MESSAGE: 3
   }
 
-  arg = arg.toUpperCase()
-  const value = values[arg]
-  const string = Object.keys(values).find(key => values[key] === arg)
-
-  if (value) {
+  if (typeof arg === "string") {
+    arg = arg.toUpperCase()
+    const value = values[arg]
     return value
-  } else if (string) {
+  } else if (typeof arg === "number") {
+    const string = Object.keys(values).find(key => values[key] === arg)
     return string
   } else {
     return null
@@ -55,13 +53,12 @@ module.exports.ButtonStyle = (arg) => {
     LINK: 5
   }
 
-  arg = arg.toUpperCase()
-  const value = values[arg]
-  const string = Object.keys(values).find(key => values[key] === arg)
-
-  if (value) {
+  if (typeof arg === "string") {
+    arg = arg.toUpperCase()
+    const value = values[arg]
     return value
-  } else if (string) {
+  } else if (typeof arg === "number") {
+    const string = Object.keys(values).find(key => values[key] === arg)
     return string
   } else {
     return null
@@ -74,13 +71,12 @@ module.exports.CommandPermissionType = (arg) => {
     USER: 2
   }
 
-  arg = arg.toUpperCase()
-  const value = values[arg]
-  const string = Object.keys(values).find(key => values[key] === arg)
-
-  if (value) {
+  if (typeof arg === "string") {
+    arg = arg.toUpperCase()
+    const value = values[arg]
     return value
-  } else if (string) {
+  } else if (typeof arg === "number") {
+    const string = Object.keys(values).find(key => values[key] === arg)
     return string
   } else {
     return null
@@ -93,13 +89,12 @@ module.exports.CommandPermissionType = (arg) => {
     PARAGRAPH: 2
   }
 
-  arg = arg.toUpperCase()
-  const value = values[arg]
-  const string = Object.keys(values).find(key => values[key] === arg)
-
-  if (value) {
+  if (typeof arg === "string") {
+    arg = arg.toUpperCase()
+    const value = values[arg]
     return value
-  } else if (string) {
+  } else if (typeof arg === "number") {
+    const string = Object.keys(values).find(key => values[key] === arg)
     return string
   } else {
     return null
@@ -154,13 +149,12 @@ module.exports.ActivityType = (arg) => {
     COMPETING: 5
   }
 
-  arg = arg.toUpperCase()
-  const value = values[arg]
-  const string = Object.keys(values).find(key => values[key] === arg)
-
-  if (value) {
+  if (typeof arg === "string") {
+    arg = arg.toUpperCase()
+    const value = values[arg]
     return value
-  } else if (string) {
+  } else if (typeof arg === "number") {
+    const string = Object.keys(values).find(key => values[key] === arg)
     return string
   } else {
     return null
