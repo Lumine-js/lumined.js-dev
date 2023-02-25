@@ -182,7 +182,6 @@ class Client extends EventEmitter {
 
     return axios(object).then(x =>
     {
-      console.log(x.data)
       return x.data
     }).catch(err => {
       if (err.response.status === 400) {
@@ -244,6 +243,11 @@ class Client extends EventEmitter {
   async getChannel(channelid = "") {
     if (channelid.length === 0) throw new Error("Channel ID Tidak Ada")
     return this.requestAPI("GET", Constants.ENDPOINTS.CHANNEL(channelid)).then(x => x)
+  }
+
+  async getGuild(guildid = "") {
+    if (id.length === 0) throw new Error("Guild ID Tidak ada")
+    return this.requestAPI("GET", Constante.EDNPOINTS.GUILD(guildid))
   }
 }
 
