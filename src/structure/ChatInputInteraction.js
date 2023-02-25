@@ -10,7 +10,7 @@ class ChatInputInteraction extends BaseInteraction {
     this.client = client || null;
 
     var daneta = JSON.parse(JSON.stringify(options))
-    //this.rawdata = options
+    this.rawdata = options
     
     this.name = daneta?.data?.name || null
     this.description = daneta?.data?.description || null
