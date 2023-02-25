@@ -26,6 +26,7 @@ class Client extends EventEmitter {
     }
 
     this.ws = null
+    this.user = null
   }
 
   login(token) {
