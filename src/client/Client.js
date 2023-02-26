@@ -174,7 +174,7 @@ class Client extends EventEmitter {
           "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
           ...headers
         },
-        body: JSON.stringify(data)
+        body: data
       })
       .then((res) => {
         if (!res.ok) {
