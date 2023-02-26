@@ -19,7 +19,7 @@ class Client extends EventEmitter {
   #token;
   #intents;
   #loginActivity
-  
+
   constructor(options = {}) {
     super()
     this.#token = options?.token || null;
@@ -165,40 +165,31 @@ class Client extends EventEmitter {
   }
 
   async requestAPI(method = "", params = "", data, headers) {
-    let object = {
-      method: method,
-      url: "https://discord.com/api/v10" + params,
-      headers: {
-        Authorization: `Bot ${this.#token}`
-      }
-    }
-
-    if (headers) {
-      object.headers = headers
-      object.headers.Authorization = `Bot ${this.#token}`
-    }
-
-    if (data) object.data = data
-
-
-    return axios(object).then(x =>
-    {
-      return x.data
-    }).catch(err => {
-      if (err.response.status === 400) {
-        var DiscordERROR = err.response.data
-        throw new Error('DiscordApiError : ' + `{
-                    code: ${DiscordERROR.code},
-                    message: ${DiscordERROR.message},
-                    error: ${JSON.stringify(DiscordERROR.errors)},
-                    url: ${object.url}
-                  }`)
-      } else if (err.response.status === 429) {
-        throw new Error("You have submitted too many requests")
-        } else {
-        throw new Error(err)
-      }
-    })
+    return fetch(`https://discord.com/api/v10${params}`, {
+        method: method,
+        headers: {
+          Authorization: `Bot ${this.#token}`,
+          "Content-Type": "application/json",
+          "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
+          ...headers
+        },
+        body: JSON.stringify(data)
+      })
+      .then((response) => {
+        if (!res.ok) {
+          if (res.status === 400) {
+            return res.json().then(text => {
+              throw new Error(text);
+            });
+          } else {
+            throw new Error(`Response status code is ${res.status}`);
+          }
+        }
+        return res.json();
+      })
+      .then((data) => {
+        return data
+      })
   }
 
   async sendMessage(id, content) {
