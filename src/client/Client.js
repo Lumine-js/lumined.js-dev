@@ -9,9 +9,10 @@ const Guild = require('./../structure/Guild.js')
 const GuildManager = require('./../manager/GuildManager.js')
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
-const axios = require('axios')
+const fetch = require('node-fetch');
 const WebSocket = require("ws");
 const clc = require("cli-color")
+const packg = require("./../../package.json")
 
 //========= CLASS
 class Client extends EventEmitter {
