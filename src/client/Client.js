@@ -182,8 +182,8 @@ class Client extends EventEmitter {
             return res.json().then(text => {
               throw new Error(text);
             });
-          } else {
-            throw new Error(`Response status code is ${res.status}`);
+          } else if (res.status === 429) {
+            throw new Error(`Too many request`);
           }
         }
         return res.json();
