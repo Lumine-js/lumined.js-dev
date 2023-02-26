@@ -174,22 +174,18 @@ class Client extends EventEmitter {
           "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
           ...headers
         },
-        body: data
+        data: data
       })
+      .then((res) => res.json())
       .then((res) => {
         if (!res.ok) {
           if (res.status === 400) {
-            return res.json().then(text => {
-              throw new Error(text);
-            });
+            throw new Error(res);
           } else if (res.status === 429) {
             throw new Error(`Too many request`);
           }
         }
-        return res.json();
-      })
-      .then((data) => {
-        return data
+        return res
       })
   }
 
