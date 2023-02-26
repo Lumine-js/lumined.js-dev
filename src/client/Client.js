@@ -166,7 +166,7 @@ class Client extends EventEmitter {
   }
 
   async requestAPI(method = "", params = "", data, headers = {}) {
-    return fetch(`https://discord.com/api/v10` + params, {
+    return fetch(`https://discord.com/api/v10${params}`, {
         method: method,
         headers: {
           Authorization: `Bot ${this.#token}`,
@@ -174,7 +174,7 @@ class Client extends EventEmitter {
           "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
           ...headers
         },
-        body: data
+        body: JSON.stringify(data)
       })
       .then((res) => res.json())
       .then((res) => {
