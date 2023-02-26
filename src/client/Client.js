@@ -178,7 +178,8 @@ class Client extends EventEmitter {
         })
         .then((res) => res.text())
         .then((res) => {
-          return resolve(res ? JSON.parse(res) : {})
+          var data = res ? JSON.parse(res) : {}
+          return data
         })
     } catch (err) {
       throw new Error(err)
