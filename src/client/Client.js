@@ -165,14 +165,17 @@ class Client extends EventEmitter {
     this.ws.send(JSON.stringify({ op: op, d: d }));
   }
 
-  async requestAPI(method = "", params = "", data, headers = {}) {
+  async requestAPI(method = "", params = "", data, headers) {
+    var head = {
+      Authorization: `Bot ${this.#token}`,
+        "Content-Type": "application/json",
+        "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
+    }
+    
+    if(headers) head = {...head, ...headers}
     return fetch(`https://discord.com/api/v10${params}`, {
         method: method,
-        headers: {
-          Authorization: `Bot ${this.#token}`,
-          "Content-Type": "application/json",
-          "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
-        },
+        headers: head,
         body: JSON.stringify(data)
       })
       .then((res) => res.json())
