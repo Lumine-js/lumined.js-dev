@@ -171,8 +171,7 @@ class Client extends EventEmitter {
         headers: {
           Authorization: `Bot ${this.#token}`,
           "Content-Type": "application/json",
-          "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
-          ...headers
+          "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
         },
         body: JSON.stringify(data)
       })
